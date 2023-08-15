@@ -1,0 +1,99 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "ConsoleApp1/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ConsoleApp1.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ConsoleApp1.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConsoleApp1/1.0.0": {
+      "type": "project",
+      "path": "../ConsoleApp1/ConsoleApp1.csproj",
+      "msbuildProject": "../ConsoleApp1/ConsoleApp1.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "ConsoleApp1 >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\cvmar\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\cvmar\\source\\repos\\ConsoleApp1\\WpfApp1\\WpfApp1.csproj",
+      "projectName": "WpfApp1",
+      "projectPath": "C:\\Users\\cvmar\\source\\repos\\ConsoleApp1\\WpfApp1\\WpfApp1.csproj",
+      "packagesPath": "C:\\Users\\cvmar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cvmar\\source\\repos\\ConsoleApp1\\WpfApp1\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\cvmar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {
+            "C:\\Users\\cvmar\\source\\repos\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj": {
+              "projectPath": "C:\\Users\\cvmar\\source\\repos\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

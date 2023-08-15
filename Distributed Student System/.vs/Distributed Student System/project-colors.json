@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "996e33a0-0401-4d74-aaed-8ef3b3fc399c": {
+      "ProjectGuid": "996e33a0-0401-4d74-aaed-8ef3b3fc399c",
+      "DisplayName": "DesktopClient",
+      "ColorIndex": 0
+    },
+    "83a7c4b8-14c0-49e6-ac28-14210394eecc": {
+      "ProjectGuid": "83a7c4b8-14c0-49e6-ac28-14210394eecc",
+      "DisplayName": "Student System Server",
+      "ColorIndex": 1
+    },
+    "03cf0362-bca5-4cdd-bd1b-02761c58aedb": {
+      "ProjectGuid": "03cf0362-bca5-4cdd-bd1b-02761c58aedb",
+      "DisplayName": "StudentDLL",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

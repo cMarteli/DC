@@ -1,0 +1,66 @@
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe.config
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.pdb
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.dll
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\Student System Server.pdb
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe.config
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.pdb
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.AssemblyReference.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.SuggestedBindingRedirects.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\MainWindow.g.cs
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\App.g.cs
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.lref
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\MainWindow.baml
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.g.resources
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.Properties.Resources.resources
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.GenerateResource.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CoreCompileInputs.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CopyComplete
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.exe
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.pdb
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe.config
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.pdb
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.dll
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.pdb
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe.config
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.pdb
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.AssemblyReference.cache
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.SuggestedBindingRedirects.cache
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\MainWindow.g.cs
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\App.g.cs
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.cache
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.lref
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\MainWindow.baml
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.g.resources
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.Properties.Resources.resources
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.GenerateResource.cache
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CoreCompileInputs.cache
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CopyComplete
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.exe
+C:\Users\19598552\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.pdb
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe.config
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.exe
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\DesktopClient.pdb
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.dll
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.pdb
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\Student System Server.exe.config
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\bin\Debug\StudentDatabaseDLL.pdb
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.AssemblyReference.cache
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.SuggestedBindingRedirects.cache
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\MainWindow.g.cs
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\App.g.cs
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.cache
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient_MarkupCompile.lref
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\MainWindow.baml
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.g.resources
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.Properties.Resources.resources
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.GenerateResource.cache
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CoreCompileInputs.cache
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.csproj.CopyComplete
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.exe
+C:\Users\cvmar\source\repos\Distributed Student System\DesktopClient\obj\Debug\DesktopClient.pdb

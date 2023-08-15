@@ -1,0 +1,6 @@
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\bin\Debug\StudentDatabaseDLL.dll
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\bin\Debug\StudentDatabaseDLL.pdb
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\obj\Debug\StudentDatabaseDLL.csproj.AssemblyReference.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\obj\Debug\StudentDatabaseDLL.csproj.CoreCompileInputs.cache
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\obj\Debug\StudentDatabaseDLL.dll
+C:\Users\283602K\Downloads\DotNET-DLL-Remoting\Distributed Student System\StudentDatabaseDLL\obj\Debug\StudentDatabaseDLL.pdb

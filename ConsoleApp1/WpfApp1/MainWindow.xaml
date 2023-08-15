@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="270" Width="638">
+    <Grid Margin="0,0,17,16">
+        <TextBox x:Name="Student_ID_Box" HorizontalAlignment="Left" Height="42" Margin="34,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="373" Text="Student ID"/>
+        <Button Content="Search" HorizontalAlignment="Left" Height="40" Margin="464,32,0,0" VerticalAlignment="Top" Width="104" Click="Button_Click"/>
+        <TextBox x:Name="Student_Name_Box" HorizontalAlignment="Left" Height="31" Margin="34,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="373" Text="Student Name"/>
+        <TextBox x:Name="University_Name_Box" HorizontalAlignment="Left" Height="31" Margin="34,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="373" Text="University Name"/>
+        <TextBox x:Name="CWA_Box" HorizontalAlignment="Left" Height="31" Margin="34,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="373" Text="CWA"/>
+
+    </Grid>
+</Window>
