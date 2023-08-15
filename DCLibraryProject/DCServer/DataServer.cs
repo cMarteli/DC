@@ -12,11 +12,13 @@ namespace DCServer
     internal class DataServer : DataServerInterface
     {
         public DataServer() { //implement
+
         }
-        public int GetNumEntries() { return 0; //implement
+        public int GetNumEntries() { return 1000; // TODO: implement
         }
 
         public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName) { //implement
+
         }
     }
 }
