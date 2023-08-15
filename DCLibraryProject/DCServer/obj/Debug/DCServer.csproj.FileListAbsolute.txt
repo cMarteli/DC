@@ -1,0 +1,3 @@
+C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.AssemblyReference.cache
+C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.CoreCompileInputs.cache

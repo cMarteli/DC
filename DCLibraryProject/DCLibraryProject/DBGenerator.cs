@@ -12,31 +12,31 @@ namespace DCLibraryProject
 
         private static Random random = new Random();
 
-        private const int NameSize = 10;
-        private const int MaxPINDigits = 6;
-        private const int MaxAcctNoDigits = 12;
-        private const int MinBalance = 100;
-        private const int MaxBalance = 100_000;
+        private const int NAME_SIZE = 10;
+        private const int MAX_PIN_DIGITS = 6;
+        private const int MAX_ACCT_DIGITS = 12;
+        private const int MIN_BALANCE = 100;
+        private const int MAX_BALANCE = 100_000;
 
         //randomly generates a first name string
         private string GetFirstName() {
-            return GenerateRandomName(NameSize);
+            return GenerateRandomName(NAME_SIZE);
         }
     
         //reuses the first name method
         private string GetLastName() {
-            return GenerateRandomName(NameSize);
+            return GenerateRandomName(NAME_SIZE);
         }
 
         private uint GetPIN() {
-            return GenerateRandomNDigitInteger(MaxPINDigits);
+            return GenerateRandomNDigitInteger(MAX_PIN_DIGITS);
         }
         private string GetAcctNo() {
-            return GenerateRandomNDigitInteger(MaxAcctNoDigits).ToString();
+            return GenerateRandomNDigitInteger(MAX_ACCT_DIGITS).ToString();
         }
 
         private int GetBalance() {
-            return random.Next(MinBalance, MaxBalance);
+            return random.Next(MIN_BALANCE, MAX_BALANCE);
         }
 
         public void GetNextAccount(out uint pin, out uint acctNo, out string firstName, out string lastName, out int balance) {

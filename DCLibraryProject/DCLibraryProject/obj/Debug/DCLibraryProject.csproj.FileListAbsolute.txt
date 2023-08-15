@@ -1,0 +1,6 @@
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.dll
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.pdb
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.csproj.AssemblyReference.cache
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.csproj.CoreCompileInputs.cache
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.dll
+C:\Users\cvmar\source\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.pdb
