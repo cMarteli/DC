@@ -6,13 +6,17 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="379" Width="334">
-    <Grid Margin="0,0,0,3">
-        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="20,40,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="lName_text_box" HorizontalAlignment="Left" Height="27" Margin="20,72,0,0" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Top" Width="309"/>
-        <TextBox x:Name="acctNo_text_box" HorizontalAlignment="Left" Height="27" Margin="20,104,0,0" TextWrapping="Wrap" Text="AcctNo" VerticalAlignment="Top" Width="309"/>
-        <TextBox x:Name="pin_text_box" HorizontalAlignment="Left" Height="27" Margin="20,136,0,0" TextWrapping="Wrap" Text="Pin" VerticalAlignment="Top" Width="309"/>
-        <TextBox x:Name="balance_text_box" HorizontalAlignment="Left" Height="27" Margin="20,168,0,0" TextWrapping="Wrap" Text="Balance" VerticalAlignment="Top" Width="309"/>
-        <Separator HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Height="27" RenderTransformOrigin="0.5,0.5" Width="802">
+    <Grid Margin="0,0,10,24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="158*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="17,10,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="263" TextChanged="TextBox_TextChanged" Grid.Column="1"/>
+        <TextBox x:Name="lName_text_box" HorizontalAlignment="Left" Height="27" Margin="18,42,0,0" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
+        <TextBox x:Name="acctNo_text_box" HorizontalAlignment="Left" Height="27" Margin="18,100,0,0" TextWrapping="Wrap" Text="AcctNo" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
+        <TextBox x:Name="pin_text_box" HorizontalAlignment="Left" Height="27" Margin="18,155,0,0" TextWrapping="Wrap" Text="Pin" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
+        <TextBox x:Name="balance_text_box" HorizontalAlignment="Left" Height="26" Margin="18,214,0,0" TextWrapping="Wrap" Text="Balance" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
+        <Separator HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" Height="27" RenderTransformOrigin="0.5,0.5" Width="802" Grid.Column="1">
             <Separator.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1" ScaleY="-1"/>
@@ -22,9 +26,12 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        <TextBox x:Name="index_text_box" HorizontalAlignment="Left" Height="27" Margin="20,271,0,0" TextWrapping="Wrap" Text="Index?" VerticalAlignment="Top" Width="71"/>
-        <Button x:Name="go_btn" Content="Go!" HorizontalAlignment="Left" Margin="237,273,0,0" VerticalAlignment="Top" Height="23" Width="61" Click="go_btn_Click"/>
-        <TextBlock x:Name="total_text_block" HorizontalAlignment="Left" Margin="20,316,0,0" TextWrapping="Wrap" Text="Total Items" VerticalAlignment="Top"/>
+        <TextBox x:Name="index_text_box" HorizontalAlignment="Left" Height="27" Margin="12,271,0,0" TextWrapping="Wrap" Text="Index?" VerticalAlignment="Top" Width="71" Grid.Column="1"/>
+        <Button x:Name="go_btn" Content="Go!" HorizontalAlignment="Left" Margin="229,273,0,0" VerticalAlignment="Top" Height="23" Width="61" Click="go_btn_Click" Grid.Column="1"/>
+        <TextBlock x:Name="total_text_block" HorizontalAlignment="Left" Margin="12,303,0,0" TextWrapping="Wrap" Text="Total Items:" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="60"/>
+        <Label Content="Account No:" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="75"/>
+        <Label Content="Pin:" HorizontalAlignment="Left" Margin="18,132,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="29"/>
+        <Label Content="Balance:" HorizontalAlignment="Left" Margin="18,187,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="53"/>
 
     </Grid>
 </Window>

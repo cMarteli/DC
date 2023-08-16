@@ -47,7 +47,7 @@ namespace GUI
             }
             
             //Also, tell me how many entries are in the DB.
-            total_text_block.Text = channel.GetNumEntries().ToString();
+            total_text_block.Text = "Total Items: " + channel.GetNumEntries().ToString();
         }
 
         private void go_btn_Click(object sender, RoutedEventArgs e)
@@ -57,7 +57,7 @@ namespace GUI
             int bal = 0;
             uint acct = 0, pin = 0;
             //On click, Get the index....
-            index = Int32.Parse(index_text_box.Text);
+            index = Int32.Parse(index_text_box.Text); //TODO: unhandled System.FormatException here
             //Then, run our RPC function, using the out mode parameters...
             channel.GetValuesForEntry(index, out acct, out pin, out bal, out fName, out lName);
             //And now, set the values in the GUI!
