@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DataServer.cs" />
     <Compile Include="DataServerInterface.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

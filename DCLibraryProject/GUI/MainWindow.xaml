@@ -1,0 +1,30 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="379" Width="334">
+    <Grid Margin="0,0,0,3">
+        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="20,40,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="lName_text_box" HorizontalAlignment="Left" Height="27" Margin="20,72,0,0" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Top" Width="309"/>
+        <TextBox x:Name="acctNo_text_box" HorizontalAlignment="Left" Height="27" Margin="20,104,0,0" TextWrapping="Wrap" Text="AcctNo" VerticalAlignment="Top" Width="309"/>
+        <TextBox x:Name="pin_text_box" HorizontalAlignment="Left" Height="27" Margin="20,136,0,0" TextWrapping="Wrap" Text="Pin" VerticalAlignment="Top" Width="309"/>
+        <TextBox x:Name="balance_text_box" HorizontalAlignment="Left" Height="27" Margin="20,168,0,0" TextWrapping="Wrap" Text="Balance" VerticalAlignment="Top" Width="309"/>
+        <Separator HorizontalAlignment="Center" Margin="0,227,0,0" VerticalAlignment="Top" Height="27" RenderTransformOrigin="0.5,0.5" Width="802">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <TextBox x:Name="index_text_box" HorizontalAlignment="Left" Height="27" Margin="20,271,0,0" TextWrapping="Wrap" Text="Index?" VerticalAlignment="Top" Width="71"/>
+        <Button x:Name="go_btn" Content="Go!" HorizontalAlignment="Left" Margin="237,273,0,0" VerticalAlignment="Top" Height="23" Width="61" Click="go_btn_Click"/>
+        <TextBlock x:Name="total_text_block" HorizontalAlignment="Left" Margin="20,316,0,0" TextWrapping="Wrap" Text="Total Items" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

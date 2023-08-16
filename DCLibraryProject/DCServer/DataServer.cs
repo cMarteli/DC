@@ -9,16 +9,23 @@ using DCLibraryProject;
 namespace DCServer
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
-    internal class DataServer : DataServerInterface
+    public class DataServer : DataServerInterface
     {
-        public DataServer() { //implement
+        private DatabaseClass ds;
+        public DataServer() { 
+            ds = new DatabaseClass(); //intantiates db class
 
         }
-        public int GetNumEntries() { return 1000; // TODO: implement
+        public int GetNumEntries() {
+            return ds.GetNumRecords();
         }
 
-        public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName) { //implement
-
+        public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName) {
+                acctNo = ds.GetAcctNoByIndex(index);
+                pin = ds.GetPINByIndex(index);
+                bal = ds.GetBalanceByIndex(index);
+                fName = ds.GetFirstNameByIndex(index);
+                lName = ds.GetLastNameByIndex(index);
         }
     }
 }

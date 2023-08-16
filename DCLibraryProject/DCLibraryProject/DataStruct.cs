@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DCLibraryProject
 {
-    internal class DataStruct
+    public class DataStruct
     {
         public uint acctNo;
         public uint pin;
