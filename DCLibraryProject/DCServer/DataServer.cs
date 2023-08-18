@@ -35,8 +35,8 @@ namespace DCServer
             catch (ArgumentOutOfRangeException)
             {
                 IndexFault inf = new IndexFault();
-                inf.Operation = "index";
-                inf.ProblemType = "out of range";
+                inf.FunctionFault = "GetValuesForEntry";
+                inf.ProblemType = "index out of range";
                 throw new FaultException<IndexFault>(inf);
             }
 

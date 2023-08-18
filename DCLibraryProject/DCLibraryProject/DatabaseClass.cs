@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DCLibraryProject
 {
@@ -14,8 +15,23 @@ namespace DCLibraryProject
 
         private List<DataStruct> dataStruct;
 
+        private Bitmap blank;
+
         public DatabaseClass()
         {
+            // creates a blank bitmap
+            blank = new Bitmap(100, 100);
+            int x = 0, y = 0;
+            for (x = 0; x < blank.Width; x++)
+            {
+                for (y = 0; y < blank.Height; y++)
+                {
+                    Color pixelColor = blank.GetPixel(x, y);
+                    Color newColor = Color.FromArgb(pixelColor.R, 0, 0);
+                    blank.SetPixel(x, y, newColor);
+                }
+            }
+
             dataStruct = new List<DataStruct>();
             LoadData(); // Load data upon construction
         }
@@ -101,6 +117,10 @@ namespace DCLibraryProject
 
         public Bitmap GetImageByIndex(int index) //TODO: Throws 'System.ArgumentOutOfRangeException
         {
+            if (indexNotValid(index))
+            {
+                return blank;
+            }
             return dataStruct[index].image;
         }
 

@@ -11,14 +11,14 @@ namespace DCServer
     [DataContract]
     public class IndexFault
     {
-        private string operation;
+        private string functionFault;
         private string problemType;
 
         [DataMember]
-        public string Operation
+        public string FunctionFault
         {
-            get { return operation; }
-            set { operation = value; }
+            get { return functionFault; }
+            set { functionFault = value; }
         }
 
         [DataMember]

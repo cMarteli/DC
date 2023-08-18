@@ -27,6 +27,7 @@ namespace GUI
     public partial class MainWindow : Window
     {
         private DataServerInterface channel;
+        private ChannelFactory<DataServerInterface> dataFactory;
 
         public MainWindow()
         {
@@ -34,7 +35,7 @@ namespace GUI
 
             /* This is a factory that generates remote connections to our remote class. This
             is what hides the RPC stuff! */
-            ChannelFactory<DataServerInterface> dataFactory;
+            //ChannelFactory<DataServerInterface> dataFactory;
             NetTcpBinding tcp = new NetTcpBinding();
 
             //Set the URL and create the connection!
@@ -44,6 +45,7 @@ namespace GUI
 
             //Also, tell me how many entries are in the DB.
             total_text_block.Text = "Total Items: " + channel.GetNumEntries().ToString();
+            
         }
 
         private void go_btn_Click(object sender, RoutedEventArgs e)
@@ -57,46 +59,41 @@ namespace GUI
             try
             {
                 index = Int32.Parse(index_text_box.Text);
-
             }
             catch (FormatException)
             {
-                index_text_box.Text = "NaN"; //TODO: maybe a better error message?
+                fName_text_box.Text = "Not a valid number";
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                IndexFault inf = new IndexFault();
-                inf.Operation = "index";
-                inf.ProblemType = "out of range";
-                throw new FaultException<IndexFault>(inf);
-            }
+
+
             //Then, run our RPC function, using the out mode parameters...
             try
             {
                 channel.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out image);
             }
-            catch (FaultException<IndexFault> inf)
+            catch (FaultException<IndexFault> fex)
             {
-                Console.WriteLine("Fault:" + inf.Message);
+                Console.WriteLine("FaultException<IndexFault>: Fault while getting value " + fex.Detail.FunctionFault + ". Problem: " + fex.Detail.ProblemType);
+                fName_text_box.Text = "Index out of range";
+                dataFactory.Abort();
+            }
+            catch (CommunicationException cex) { } //TODO: this is throwing when same value is loaded twice
+            finally {
+                //Set the values in the GUI
+                fName_text_box.Text = fName;
+                lName_text_box.Text = lName;
+                balance_text_box.Text = bal.ToString("C");
+                acctNo_text_box.Text = acctNo.ToString();
+                pin_text_box.Text = pin.ToString("D4");
+                //converts bitmap
+                if (image != null)
+                {
+                    var handle = image.GetHbitmap();
+                    image_box.Source = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                }
+
             }
             
-            //And now, set the values in the GUI!
-            var handle = image.GetHbitmap();
-            
-            fName_text_box.Text = fName;
-            lName_text_box.Text = lName;
-            balance_text_box.Text = bal.ToString("C");
-            acctNo_text_box.Text = acctNo.ToString();
-            pin_text_box.Text = pin.ToString("D4");
-
-            try
-            {
-                image_box.Source = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }
-            catch (Exception ex) { //TODO: remove general exception
-                Console.WriteLine("Fault:" + ex.Message);
-            }
-
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

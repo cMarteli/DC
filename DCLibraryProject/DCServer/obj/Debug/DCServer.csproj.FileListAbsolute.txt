@@ -1,14 +1,3 @@
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\bin\Debug\DCServer.exe.config
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\bin\Debug\DCServer.exe
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\bin\Debug\DCServer.pdb
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\bin\Debug\DCLibraryProject.dll
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\bin\Debug\DCLibraryProject.pdb
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.AssemblyReference.cache
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.SuggestedBindingRedirects.cache
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.CoreCompileInputs.cache
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.csproj.CopyComplete
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.exe
-C:\Users\cvmar\source\repos\DCLibraryProject\DCServer\obj\Debug\DCServer.pdb
 C:\Users\19598552\Source\Repos\DC\DCLibraryProject\DCServer\bin\Debug\DCServer.exe.config
 C:\Users\19598552\Source\Repos\DC\DCLibraryProject\DCServer\bin\Debug\DCServer.exe
 C:\Users\19598552\Source\Repos\DC\DCLibraryProject\DCServer\bin\Debug\DCServer.pdb
