@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DCLibraryProject
 {
@@ -13,6 +14,8 @@ namespace DCLibraryProject
         public int balance;
         public string firstName;
         public string lastName;
+        public Bitmap image;
+
         public DataStruct() //constructor
         {
             acctNo = 0;
@@ -20,6 +23,7 @@ namespace DCLibraryProject
             balance = 0;
             firstName = "";
             lastName = "";
+            image = null;
         }
     }
 }

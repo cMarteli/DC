@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using System.Drawing;
 
 namespace DCServer
 {
@@ -13,7 +14,7 @@ namespace DCServer
         [OperationContract]
         int GetNumEntries();
         [OperationContract]
-        void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName);
+        void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out Bitmap image);
     }      
 
     

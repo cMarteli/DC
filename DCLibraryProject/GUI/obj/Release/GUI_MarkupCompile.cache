@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\19598552\Source\Repos\DC\DCLibraryProject\GUI\obj\Debug\
+C:\Users\19598552\Source\Repos\DC\DCLibraryProject\GUI\obj\Release\
 GUI
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\19598552\Source\Repos\DC\DCLibraryProject\GUI\App.xaml
 1219584333
 
-6-502434485
-16-1076892208
+51579654133
+16-448412356
 MainWindow.xaml;
 
 True

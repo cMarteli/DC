@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DCLibraryProject
 {
@@ -28,8 +29,9 @@ namespace DCLibraryProject
                 uint pin, acctNo;
                 string firstName, lastName;
                 int balance;
+                Bitmap image;
 
-                generator.GetNextAccount(out pin, out acctNo, out firstName, out lastName, out balance);
+                generator.GetNextAccount(out pin, out acctNo, out firstName, out lastName, out balance, out image);
 
                 // Create a new DataStruct instance and populate its fields
                 DataStruct entry = new DataStruct
@@ -38,7 +40,8 @@ namespace DCLibraryProject
                     pin = pin,
                     balance = balance,
                     firstName = firstName,
-                    lastName = lastName
+                    lastName = lastName,
+                    image = image
                 };
 
                 // Add the generated entry to the list
@@ -96,10 +99,17 @@ namespace DCLibraryProject
             return dataStruct[index].balance;
         }
 
+        public Bitmap GetImageByIndex(int index) //TODO: Throws 'System.ArgumentOutOfRangeException
+        {
+            return dataStruct[index].image;
+        }
+
         public int GetNumRecords()
         {
             return dataStruct.Count;
         }
+
+
     }
 }
 

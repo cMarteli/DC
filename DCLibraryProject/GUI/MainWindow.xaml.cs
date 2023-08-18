@@ -12,10 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
 
 using System.ServiceModel;
 using DCServer;
 using System.Collections.Specialized;
+using System.Windows.Interop;
 
 namespace GUI
 {
@@ -38,13 +40,7 @@ namespace GUI
             //Set the URL and create the connection!
             string URL = "net.tcp://localhost:8100/DataService";
             dataFactory = new ChannelFactory<DataServerInterface>(tcp, URL);
-            try {
-                channel = dataFactory.CreateChannel();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Exception!");
-            }
+            channel = dataFactory.CreateChannel();
 
             //Also, tell me how many entries are in the DB.
             total_text_block.Text = "Total Items: " + channel.GetNumEntries().ToString();
@@ -55,17 +51,51 @@ namespace GUI
             int index = 0;
             string fName = "", lName = "";
             int bal = 0;
-            uint acct = 0, pin = 0;
+            uint acctNo = 0, pin = 0;
+            Bitmap image = null;
             //On click, Get the index....
-            index = Int32.Parse(index_text_box.Text); //TODO: unhandled System.FormatException here check for empty and non-numerical
+            try
+            {
+                index = Int32.Parse(index_text_box.Text);
+
+            }
+            catch (FormatException)
+            {
+                index_text_box.Text = "NaN"; //TODO: maybe a better error message?
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                IndexFault inf = new IndexFault();
+                inf.Operation = "index";
+                inf.ProblemType = "out of range";
+                throw new FaultException<IndexFault>(inf);
+            }
             //Then, run our RPC function, using the out mode parameters...
-            channel.GetValuesForEntry(index, out acct, out pin, out bal, out fName, out lName);
+            try
+            {
+                channel.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out image);
+            }
+            catch (FaultException<IndexFault> inf)
+            {
+                Console.WriteLine("Fault:" + inf.Message);
+            }
+            
             //And now, set the values in the GUI!
+            var handle = image.GetHbitmap();
+            
             fName_text_box.Text = fName;
             lName_text_box.Text = lName;
             balance_text_box.Text = bal.ToString("C");
-            acctNo_text_box.Text = acct.ToString();
+            acctNo_text_box.Text = acctNo.ToString();
             pin_text_box.Text = pin.ToString("D4");
+
+            try
+            {
+                image_box.Source = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            catch (Exception ex) { //TODO: remove general exception
+                Console.WriteLine("Fault:" + ex.Message);
+            }
 
         }
 

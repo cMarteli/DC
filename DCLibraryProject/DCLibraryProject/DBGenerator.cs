@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DCLibraryProject
 {
@@ -13,8 +14,8 @@ namespace DCLibraryProject
         private static Random random = new Random();
 
         private const int NAME_SIZE = 10;
-        private const int MAX_PIN_DIGITS = 6;
-        private const int MAX_ACCT_DIGITS = 12;
+        private const int MAX_PIN_DIGITS = 4;
+        private const int MAX_ACCT_DIGITS = 6;
         private const int MIN_BALANCE = 100;
         private const int MAX_BALANCE = 100_000;
 
@@ -31,20 +32,27 @@ namespace DCLibraryProject
         private uint GetPIN() {
             return GenerateRandomNDigitInteger(MAX_PIN_DIGITS);
         }
-        private string GetAcctNo() {
-            return GenerateRandomNDigitInteger(MAX_ACCT_DIGITS).ToString();
+        private uint GetAcctNo() {
+            return GenerateRandomNDigitInteger(MAX_ACCT_DIGITS);
         }
 
         private int GetBalance() {
             return random.Next(MIN_BALANCE, MAX_BALANCE);
         }
 
-        public void GetNextAccount(out uint pin, out uint acctNo, out string firstName, out string lastName, out int balance) {
+        private Bitmap GetBitmap()
+        {
+            return GenerateBitmap();
+        }
+
+        public void GetNextAccount(out uint pin, out uint acctNo, out string firstName, out string lastName, out int balance, out Bitmap image) {
             pin = GetPIN();
-            acctNo = uint.Parse(GetAcctNo());
+            acctNo = GetAcctNo();
             firstName = GetFirstName();
             lastName = GetLastName();
             balance = GetBalance();
+            image = GetBitmap();
+
         }
 
         //helper method to generate names
@@ -75,6 +83,25 @@ namespace DCLibraryProject
             int maxValue = (int)Math.Pow(10, numDigits);
 
             return (uint)random.Next(minValue, maxValue);
+        }
+        /** Generates a bitmap image with random pixel rgb values **/
+        public Bitmap GenerateBitmap()
+        {
+            Bitmap image = new Bitmap(100, 100);
+            int x, y;
+            // Loop through the images pixels to randomize color.
+            for (x = 0; x < image.Width; x++)
+            {
+                for (y = 0; y < image.Height; y++)
+                {
+                    Color pixelColor = image.GetPixel(x, y);
+                    Color newColor = Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
+                    image.SetPixel(x, y, newColor);
+                }
+            }
+
+            return image;
+
         }
 
 

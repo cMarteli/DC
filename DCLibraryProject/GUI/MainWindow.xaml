@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="379" Width="334">
-    <Grid Margin="0,0,10,24">
+        Title="MainWindow" Height="379" Width="503">
+    <Grid Margin="10,17,10,24">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
             <ColumnDefinition Width="158*"/>
@@ -32,6 +32,7 @@
         <Label Content="Account No:" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="75"/>
         <Label Content="Pin:" HorizontalAlignment="Left" Margin="18,132,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="29"/>
         <Label Content="Balance:" HorizontalAlignment="Left" Margin="18,187,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="53"/>
+        <Image x:Name="image_box" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="332,24,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
