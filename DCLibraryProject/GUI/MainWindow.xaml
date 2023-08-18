@@ -28,7 +28,7 @@
         </Separator>
         <TextBox x:Name="index_text_box" HorizontalAlignment="Left" Height="27" Margin="12,271,0,0" TextWrapping="Wrap" Text="Index?" VerticalAlignment="Top" Width="71" Grid.Column="1"/>
         <Button x:Name="go_btn" Content="Go!" HorizontalAlignment="Left" Margin="229,273,0,0" VerticalAlignment="Top" Height="23" Width="61" Click="go_btn_Click" Grid.Column="1"/>
-        <TextBlock x:Name="total_text_block" HorizontalAlignment="Left" Margin="12,303,0,0" TextWrapping="Wrap" Text="Total Items:" VerticalAlignment="Top" Grid.Column="1" Height="16" Width="60"/>
+        <TextBlock x:Name="total_text_block" Margin="100,298,84,0" TextWrapping="Wrap" Text="Total Items:" VerticalAlignment="Top" Grid.Column="1" Height="16"/>
         <Label Content="Account No:" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="75"/>
         <Label Content="Pin:" HorizontalAlignment="Left" Margin="18,132,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="29"/>
         <Label Content="Balance:" HorizontalAlignment="Left" Margin="18,187,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="53"/>
