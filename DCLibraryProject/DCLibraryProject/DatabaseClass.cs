@@ -19,18 +19,8 @@ namespace DCLibraryProject
 
         public DatabaseClass()
         {
-            // creates a blank bitmap
-            blank = new Bitmap(100, 100);
-            int x = 0, y = 0;
-            for (x = 0; x < blank.Width; x++)
-            {
-                for (y = 0; y < blank.Height; y++)
-                {
-                    Color pixelColor = blank.GetPixel(x, y);
-                    Color newColor = Color.FromArgb(pixelColor.R, 0, 0);
-                    blank.SetPixel(x, y, newColor);
-                }
-            }
+            // creates a blank bitmap and makes it white
+            blank = new Bitmap(1, 1);
 
             dataStruct = new List<DataStruct>();
             LoadData(); // Load data upon construction
@@ -69,7 +59,7 @@ namespace DCLibraryProject
             return (index >= NUMBER_OF_ENTRIES || index < 0);
         } 
 
-        public uint GetAcctNoByIndex(int index) //TODO: Throws ArgumentOutOfRangeException
+        public uint GetAcctNoByIndex(int index)
         {
             if (indexNotValid(index))
             {
@@ -115,7 +105,7 @@ namespace DCLibraryProject
             return dataStruct[index].balance;
         }
 
-        public Bitmap GetImageByIndex(int index) //TODO: Throws 'System.ArgumentOutOfRangeException
+        public Bitmap GetImageByIndex(int index)
         {
             if (indexNotValid(index))
             {

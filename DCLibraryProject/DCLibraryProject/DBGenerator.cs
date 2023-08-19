@@ -18,6 +18,7 @@ namespace DCLibraryProject
         private const int MAX_ACCT_DIGITS = 6;
         private const int MIN_BALANCE = 100;
         private const int MAX_BALANCE = 100_000;
+        private const int BITMAP_SIZE = 4;
 
         //randomly generates a first name string
         private string GetFirstName() {
@@ -42,7 +43,7 @@ namespace DCLibraryProject
 
         private Bitmap GetBitmap()
         {
-            return GenerateBitmap();
+            return GenerateBitmap(BITMAP_SIZE);
         }
 
         public void GetNextAccount(out uint pin, out uint acctNo, out string firstName, out string lastName, out int balance, out Bitmap image) {
@@ -85,9 +86,9 @@ namespace DCLibraryProject
             return (uint)random.Next(minValue, maxValue);
         }
         /** Generates a bitmap image with random pixel rgb values **/
-        public Bitmap GenerateBitmap()
+        private Bitmap GenerateBitmap(int bSize)
         {
-            Bitmap image = new Bitmap(100, 100);
+            Bitmap image = new Bitmap(bSize, bSize);
             int x, y;
             // Loop through the images pixels to randomize color.
             for (x = 0; x < image.Width; x++)

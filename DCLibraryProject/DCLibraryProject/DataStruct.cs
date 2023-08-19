@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace DCLibraryProject
 {
@@ -23,7 +24,7 @@ namespace DCLibraryProject
             balance = 0;
             firstName = "";
             lastName = "";
-            image = null;
+            image = new Bitmap(1, 1);
         }
     }
 }

@@ -11,7 +11,7 @@
             <ColumnDefinition Width="9*"/>
             <ColumnDefinition Width="158*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="17,10,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="263" TextChanged="TextBox_TextChanged" Grid.Column="1"/>
+        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="17,10,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="263" Grid.Column="1"/>
         <TextBox x:Name="lName_text_box" HorizontalAlignment="Left" Height="27" Margin="18,42,0,0" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
         <TextBox x:Name="acctNo_text_box" HorizontalAlignment="Left" Height="27" Margin="18,100,0,0" TextWrapping="Wrap" Text="AcctNo" VerticalAlignment="Top" Width="262" Grid.Column="1"/>
         <TextBox x:Name="pin_text_box" HorizontalAlignment="Left" Height="27" Margin="18,155,0,0" TextWrapping="Wrap" Text="Pin" VerticalAlignment="Top" Width="262" Grid.Column="1"/>

@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
-
-using System.ServiceModel;
-using DCServer;
-using System.Collections.Specialized;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using DCServer;
 
 namespace GUI
 {
@@ -54,40 +42,40 @@ namespace GUI
             string fName = "", lName = "";
             int bal = 0;
             uint acctNo = 0, pin = 0;
-            Bitmap image = null;
+            Bitmap image = new Bitmap(1,1);
             //On click, Get the index....
-            try
-            {
+            try {
                 index = Int32.Parse(index_text_box.Text);
             }
-            catch (FormatException)
-            {
+            catch (FormatException) {
                 fName_text_box.Text = "Not a valid number";
             }
-
-
             //Then, run our RPC function, using the out mode parameters...
-            try
-            {
+            try {
                 channel.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out image);
             }
-            catch (FaultException<IndexFault> fex)
-            {
+            catch (FaultException<IndexFault> fex) {
                 Console.WriteLine("FaultException<IndexFault>: Fault while getting value " + fex.Detail.FunctionFault + ". Problem: " + fex.Detail.ProblemType);
                 fName_text_box.Text = "Index out of range";
                 dataFactory.Abort();
             }
-            catch (CommunicationException cex) { } //TODO: this is throwing when same value is loaded twice
+            catch (CommunicationException cex) {
+                
+                Console.WriteLine(cex.Message);                
+                Console.WriteLine(cex.InnerException);
+                Console.WriteLine("**********************************************************TEST**********************************************************");
+                Console.WriteLine(cex.StackTrace);
+            } //TODO: this is throwing when same value is loaded twice
             finally {
                 //Set the values in the GUI
+                index_text_box.Text = index.ToString();
                 fName_text_box.Text = fName;
                 lName_text_box.Text = lName;
                 balance_text_box.Text = bal.ToString("C");
                 acctNo_text_box.Text = acctNo.ToString();
                 pin_text_box.Text = pin.ToString("D4");
                 //converts bitmap
-                if (image != null)
-                {
+                if (image != null) {
                     var handle = image.GetHbitmap();
                     image_box.Source = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 }
@@ -96,9 +84,6 @@ namespace GUI
             
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
     }
 }
