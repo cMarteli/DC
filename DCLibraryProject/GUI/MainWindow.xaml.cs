@@ -59,13 +59,9 @@ namespace GUI
                 fName_text_box.Text = "Index out of range";
                 dataFactory.Abort();
             }
-            catch (CommunicationException cex) {
-                
-                Console.WriteLine(cex.Message);                
-                Console.WriteLine(cex.InnerException);
-                Console.WriteLine("**********************************************************TEST**********************************************************");
-                Console.WriteLine(cex.StackTrace);
-            } //TODO: this is throwing when same value is loaded twice
+            catch (CommunicationException cex) { //TODO: this is throwing when same value is loaded twice                
+                Console.WriteLine(cex.Message + cex.InnerException + cex.StackTrace);
+            } 
             finally {
                 //Set the values in the GUI
                 index_text_box.Text = index.ToString();
