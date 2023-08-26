@@ -101,6 +101,10 @@
       <Project>{7eb1d2e4-a4b2-4db2-b012-340ee6ad37de}</Project>
       <Name>DCBusinessTier</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DCServer\DCServer.csproj">
+      <Project>{3E91D868-8E38-489A-ACB9-5B197AB1C3AA}</Project>
+      <Name>DCServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

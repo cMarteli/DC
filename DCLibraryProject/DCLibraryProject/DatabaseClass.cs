@@ -2,11 +2,12 @@
 using System.Drawing;
 using System;
 using System.IO;
+using System.Runtime.Remoting.Messaging;
 
-namespace DCLibraryProject {
-    //Singleton using the .NET "lazy" convention to avoid threading issues
+namespace DCDatabase {
+    /** Singleton using the .NET "lazy" convention to avoid threading issues **/
     public class DatabaseClass {
-        private const int NUMBER_OF_ENTRIES = 1000;
+        private const int NUMBER_OF_ENTRIES = 100_000;
         private static readonly Lazy<DatabaseClass> lazy = new Lazy<DatabaseClass>(() => new DatabaseClass());
         public static DatabaseClass Instance => lazy.Value;
 
@@ -16,7 +17,7 @@ namespace DCLibraryProject {
             cachedData = GenerateUserData();
         }
 
-        //Helper method to serialize bitmap image
+        /** Helper method to serialize bitmap image **/
         public static byte[] BitmapToByteArray(Bitmap bitmap) {
             using (MemoryStream stream = new MemoryStream()) {
                 bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
@@ -47,7 +48,7 @@ namespace DCLibraryProject {
             return ds;
         }
 
-        //Caches data so generated values are the same
+        /** Caches data so generated values are the same **/
         public List<DataStruct> UserData() {
             return cachedData;
         }

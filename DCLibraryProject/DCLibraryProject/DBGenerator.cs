@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace DCLibraryProject {
+namespace DCDatabase {
     internal class DBGenerator {
 
         private static Random random = new Random();

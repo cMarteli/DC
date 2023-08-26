@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DCLibraryProject {
+namespace DCDatabase {
     public class DataStruct {
         public uint acctNo;
         public uint pin;

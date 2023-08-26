@@ -11,7 +11,7 @@ using DCServer;
 
 namespace DCBusinessTier {
     internal class BusinessServer : BusinessServerInterface {
-        private DataServerInterface _businessServer;
+        private readonly DataServerInterface _businessServer;
 
         public BusinessServer() {
             ChannelFactory<DataServerInterface> channelFactory;
@@ -39,7 +39,7 @@ namespace DCBusinessTier {
             int numEntry = _businessServer.GetNumEntries();
             for (int i = 1; i <= numEntry; i++) {
                 _businessServer.GetValuesForEntry(i, out uint sAcctNo, out uint sPin, out int sBal, out string sfName, out string slName, out byte[] sImage);
-                if (sfName.ToLower().Contains(searchText.ToLower())) //TODO: Currently searching by name, perhaps acctNo is better?
+                if (slName.ToLower().Contains(searchText.ToLower())) //searches by last name
                 {
                     acctNo = sAcctNo;
                     pin = sPin;
@@ -51,7 +51,7 @@ namespace DCBusinessTier {
                     break;
                 }
             }
-            Thread.Sleep(2000); //Forced sleep for 2000ms
+            //Thread.Sleep(4000); //Forced sleep for 4000ms
         }
     }
 }
