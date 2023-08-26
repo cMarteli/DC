@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using System.Drawing;
 
-namespace DCServer
-{
+namespace DCServer {
     [ServiceContract]
-    public interface DataServerInterface
-    {
+    public interface DataServerInterface {
         [OperationContract]
         int GetNumEntries();
         [OperationContract]
         [FaultContract(typeof(IndexFault))]
         void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes);
-    }      
+    }
 
-    
+
 }

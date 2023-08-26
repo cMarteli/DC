@@ -6,24 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 //Error contract class
-namespace DCServer
-{
+namespace DCServer {
     [DataContract]
-    public class IndexFault
-    {
+    public class IndexFault {
         private string functionFault;
         private string problemType;
 
         [DataMember]
-        public string FunctionName
-        {
+        public string FunctionName {
             get { return functionFault; }
             set { functionFault = value; }
         }
 
         [DataMember]
-        public string Reason
-        {
+        public string Reason {
             get { return problemType; }
             set { problemType = value; }
         }

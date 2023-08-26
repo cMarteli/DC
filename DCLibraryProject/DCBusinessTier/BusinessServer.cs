@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DCServer;
 
-namespace DCBusinessTier
-{
-    internal class BusinessServer : BusinessServerInterface
-    {
+namespace DCBusinessTier {
+    internal class BusinessServer : BusinessServerInterface {
         private DataServerInterface _businessServer;
 
         public BusinessServer() {
@@ -23,46 +21,37 @@ namespace DCBusinessTier
             channelFactory = new ChannelFactory<DataServerInterface>(tcp, URL);
             _businessServer = channelFactory.CreateChannel();
         }
-        public int GetNumEntries()
-        {
+        public int GetNumEntries() {
             return _businessServer.GetNumEntries();
         }
 
-        public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out Bitmap image)
-        {
-            _businessServer.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out image);
+        public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
+            _businessServer.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out imgBytes);
         }
 
-        public void GetValuesForSearch(string searchText, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out Bitmap image)
-        {
+        public void GetValuesForSearch(string searchText, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
             acctNo = 0;
             pin = 0;
             bal = 0;
             fName = "";
             lName = "";
-            image = new Bitmap(1, 1);
+            imgBytes = null;
             int numEntry = _businessServer.GetNumEntries();
-            for (int i = 1; i <= numEntry; i++)
-            {
-                uint sAcctNo, sPin;
-                int sBal;
-                string sfName, slName;
-                Bitmap sImage;
-
-                _businessServer.GetValuesForEntry(i, out sAcctNo, out sPin, out sBal, out sfName, out slName, out sImage);
-                if (sfName.ToLower().Contains(searchText.ToLower()))
+            for (int i = 1; i <= numEntry; i++) {
+                _businessServer.GetValuesForEntry(i, out uint sAcctNo, out uint sPin, out int sBal, out string sfName, out string slName, out byte[] sImage);
+                if (sfName.ToLower().Contains(searchText.ToLower())) //TODO: Currently searching by name, perhaps acctNo is better?
                 {
                     acctNo = sAcctNo;
                     pin = sPin;
                     bal = sBal;
                     fName = sfName;
                     lName = slName;
-                    image = sImage;
+                    imgBytes = sImage;
 
                     break;
                 }
             }
-            Thread.Sleep(5000); //Forced sleep for two seconds
+            Thread.Sleep(2000); //Forced sleep for 2000ms
         }
     }
 }

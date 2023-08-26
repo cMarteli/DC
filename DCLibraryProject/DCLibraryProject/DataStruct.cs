@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DCLibraryProject
-{
-    public class DataStruct
-    {
+namespace DCLibraryProject {
+    public class DataStruct {
         public uint acctNo;
         public uint pin;
         public int balance;
@@ -15,8 +13,7 @@ namespace DCLibraryProject
         public string lastName;
         public byte[] imageBytes;
 
-        public DataStruct() //constructor
-        {
+        public DataStruct() {
             acctNo = 0;
             pin = 0;
             balance = 0;

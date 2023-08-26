@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1478B4FD-9869-4887-8C48-7BA1F336C880}</ProjectGuid>
+    <ProjectGuid>{7EB1D2E4-A4B2-4DB2-B012-340EE6AD37DE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>DCBusinessTier</RootNamespace>
     <AssemblyName>DCBusinessTier</AssemblyName>
@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

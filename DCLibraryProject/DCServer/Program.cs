@@ -1,36 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DCServer
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            //This should *definitely* be more descriptive.
-            Console.WriteLine("Welcome to DCServer");
-            //This is the actual host service system
-            ServiceHost host;
-            //This represents a tcp/ip binding in the Windows network stack
+namespace DCServer {
+    internal class Program {
+        static void Main(string[] args) {
+            /* Display a welcome message */
+            DisplayWelcomeMessage();
+
+            try {
+                /* Initialize and use ServiceHost */
+                using (ServiceHost host = InitializeServiceHost()) {
+                    /* Start the service host */
+                    StartServiceHost(host);
+                }
+            } catch (Exception ex) {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+        /*
+         * Displays a welcome message when the server starts.
+         */
+        private static void DisplayWelcomeMessage() {
+            Console.WriteLine("Data Server is online!");
+        }
+
+        /*
+         * Initializes the Service Host.
+         * Returns the initialized ServiceHost.
+         */
+        private static ServiceHost InitializeServiceHost() {
             NetTcpBinding tcp = new NetTcpBinding();
-            //Bind server to the implementation of DataServer
-            host = new ServiceHost(typeof(DataServer));
-            /* Present the publicly accessible interface to the client. 0.0.0.0 tells .net to accept on any interface. 
-             * :8100 means this will use port 8100. DataService is a name for the
-             * actual service, this can be any string. */
-
+            ServiceHost host = new ServiceHost(typeof(DataServer));
             host.AddServiceEndpoint(typeof(DataServerInterface), tcp, "net.tcp://0.0.0.0:8100/DataService");
-            //And open the host for business!
+            return host;
+        }
+
+        /*
+         * Starts the service host and waits for user input to stop it.
+         * Takes in the service host to start as a parameter.
+         */
+        private static void StartServiceHost(ServiceHost host) {
             host.Open();
             Console.WriteLine("System Online");
             Console.ReadLine();
-            //Don't forget to close the host after you're done!
-            host.Close();
-         }
-    
+        }
     }
 }
