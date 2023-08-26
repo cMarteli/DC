@@ -15,14 +15,14 @@ namespace DCServer
         private string problemType;
 
         [DataMember]
-        public string FunctionFault
+        public string FunctionName
         {
             get { return functionFault; }
             set { functionFault = value; }
         }
 
         [DataMember]
-        public string ProblemType
+        public string Reason
         {
             get { return problemType; }
             set { problemType = value; }

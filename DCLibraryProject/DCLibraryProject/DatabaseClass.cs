@@ -1,45 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.IO;
 
 namespace DCLibraryProject
 {
+    //Singleton using the .NET "lazy" convention to avoid threading issues
     public class DatabaseClass
     {
         private const int NUMBER_OF_ENTRIES = 1000;
+        private static readonly Lazy<DatabaseClass> lazy = new Lazy<DatabaseClass>(() => new DatabaseClass());
+        public static DatabaseClass Instance => lazy.Value;
 
-        private List<DataStruct> dataStruct;
+        private readonly List<DataStruct> cachedData;
 
-        private Bitmap blank;
-
-        public DatabaseClass()
+        private DatabaseClass()
         {
-            // creates a blank bitmap and makes it white
-            blank = new Bitmap(1, 1);
-
-            dataStruct = new List<DataStruct>();
-            LoadData(); // Load data upon construction
+            cachedData = GenerateUserData();
         }
 
-        private void LoadData()
+        //Helper method to serialize bitmap image
+        public static byte[] BitmapToByteArray(Bitmap bitmap)
         {
-            DBGenerator generator = new DBGenerator(); // Create an instance of DBGenerator
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+
+        private List<DataStruct> GenerateUserData()
+        {
+            List<DataStruct> ds = new List<DataStruct>();
+            DBGenerator generator = new DBGenerator();
 
             for (int i = 0; i < NUMBER_OF_ENTRIES; i++)
             {
-                uint pin, acctNo;
-                string firstName, lastName;
-                int balance;
-                Bitmap image;
+                generator.GetNextAccount(out uint pin, out uint acctNo, out string firstName,
+                    out string lastName, out int balance, out Bitmap image);
 
-                generator.GetNextAccount(out pin, out acctNo, out firstName, out lastName, out balance, out image);
-
-                // Create a new DataStruct instance and populate its fields
                 DataStruct entry = new DataStruct
                 {
                     acctNo = acctNo,
@@ -47,79 +46,19 @@ namespace DCLibraryProject
                     balance = balance,
                     firstName = firstName,
                     lastName = lastName,
-                    image = image
+                    imageBytes = BitmapToByteArray(image) //serialization happens here
                 };
 
-                // Add the generated entry to the list
-                dataStruct.Add(entry);
+                ds.Add(entry);
             }
+
+            return ds;
         }
 
-        private Boolean indexNotValid(int index) {
-            return (index >= NUMBER_OF_ENTRIES || index < 0);
-        } 
-
-        public uint GetAcctNoByIndex(int index)
+        //Caches data so generated values are the same
+        public List<DataStruct> UserData()
         {
-            if (indexNotValid(index))
-            {
-                return 0;
-            }
-            
-            return dataStruct[index].acctNo;
+            return cachedData;
         }
-
-        public uint GetPINByIndex(int index)
-        {
-            if (indexNotValid(index))
-            {
-                return 0;
-            }
-            return dataStruct[index].pin;
-        }
-
-        public string GetFirstNameByIndex(int index)
-        {
-            if (indexNotValid(index))
-            {
-                return "No Entry";
-            }
-            return dataStruct[index].firstName;
-        }
-
-        public string GetLastNameByIndex(int index)
-        {
-            if (indexNotValid(index))
-            {
-                return "No Entry";
-            }
-            return dataStruct[index].lastName;
-        }
-
-        public int GetBalanceByIndex(int index)
-        {
-            if (indexNotValid(index))
-            {
-                return 0;
-            }
-            return dataStruct[index].balance;
-        }
-
-        public Bitmap GetImageByIndex(int index)
-        {
-            if (indexNotValid(index))
-            {
-                return blank;
-            }
-            return dataStruct[index].image;
-        }
-
-        public int GetNumRecords()
-        {
-            return dataStruct.Count;
-        }
-
-
     }
 }
-

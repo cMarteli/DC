@@ -15,7 +15,7 @@ namespace DCServer
         int GetNumEntries();
         [OperationContract]
         [FaultContract(typeof(IndexFault))]
-        void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out Bitmap image);
+        void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes);
     }      
 
     
