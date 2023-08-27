@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-//Error contract class
+/** Error contract class **/
 namespace DCServer {
     [DataContract]
     public class IndexFault {

@@ -3,8 +3,9 @@ using System.ServiceModel;
 
 namespace DCBusinessTier {
     internal class Program {
-        static void Main(string[] args) {
-            DisplayWelcomeMessage();
+        static void Main() {
+            /* Display a welcome message */
+            Console.WriteLine("Welcome to the business server!");
 
             try {
                 /* Initialize and use ServiceHost within a 'using' block for automatic cleanup */
@@ -15,13 +16,6 @@ namespace DCBusinessTier {
             } catch (Exception ex) {
                 Console.WriteLine($"An error occured: {ex.Message}");
             }
-        }
-
-        /*
-         * Display a welcome message when the server starts.
-         */
-        private static void DisplayWelcomeMessage() {
-            Console.WriteLine("Welcome to the business server!");
         }
 
         /*

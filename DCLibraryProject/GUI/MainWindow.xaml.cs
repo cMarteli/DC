@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,9 +11,12 @@ using DCBusinessTier;
 using DCServer;
 
 namespace GUI {
+    public delegate void SearchSurname(string value, out uint acctNo, out uint pin, out int bal,
+        out string fName, out string lName, out byte[] imgBytes); // Delegate for searching surname
     public partial class MainWindow : Window {
         private BusinessServerInterface channel;
         private ChannelFactory<BusinessServerInterface> dataFactory;
+        private SearchSurname searchSurname; // Reference to search surname method
 
         public MainWindow() {
             InitializeComponent();
@@ -73,14 +77,35 @@ namespace GUI {
         }
 
         private void search_surname_btn_Click(object sender, RoutedEventArgs e) {
-            try {
-                channel.GetValuesForSearch(search_text_box.Text, out uint acctNo, out uint pin, out int bal, 
-                    out string fName, out string lName, out byte[] imgBytes);
-                int index = 0;  // TODO: Retrieve the actual index if required
-                UpdateFields(index, fName, lName, bal, acctNo, pin, imgBytes);
-            } catch (Exception ex) {
-                Console.WriteLine(ex.Message);
+            /* Initialize the delegate and callback */
+            searchSurname = channel.GetValuesForSearch;
+            AsyncCallback callback = this.OnSearchSurnameCompletion;
+
+            /* Start the asynchronous operation */
+            IAsyncResult result = searchSurname.BeginInvoke(search_text_box.Text, out uint acctNo,
+            out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes, callback, null);
+        }
+
+        private void OnSearchSurnameCompletion(IAsyncResult asyncResult) {
+            /* Variables for storing the result */
+            uint acctNo;
+            uint pin;
+            int bal;
+            string fName;
+            string lName;
+            byte[] imgBytes;
+            int index = 0;  // TODO: Retrieve the actual index if required
+
+            /* End the asynchronous call and get the results */
+            AsyncResult asyncObj = (AsyncResult)asyncResult;
+            if (!asyncObj.EndInvokeCalled) {
+                searchSurname.EndInvoke(out acctNo, out pin, out bal, out fName, out lName, out imgBytes, asyncObj);
+
+                /* Update the GUI */
+                this.Dispatcher.Invoke(new Action(() => UpdateFields(index, fName, lName, bal, acctNo, pin, imgBytes)));
             }
+
+            asyncObj.AsyncWaitHandle.Close(); //Clean up
         }
     }
 }

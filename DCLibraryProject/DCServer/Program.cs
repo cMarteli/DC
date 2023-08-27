@@ -3,9 +3,9 @@ using System.ServiceModel;
 
 namespace DCServer {
     internal class Program {
-        static void Main(string[] args) {
+        static void Main() {
             /* Display a welcome message */
-            DisplayWelcomeMessage();
+            Console.WriteLine("Data Server is online!");
 
             try {
                 /* Initialize and use ServiceHost */
@@ -16,13 +16,6 @@ namespace DCServer {
             } catch (Exception ex) {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-        }
-
-        /*
-         * Displays a welcome message when the server starts.
-         */
-        private static void DisplayWelcomeMessage() {
-            Console.WriteLine("Data Server is online!");
         }
 
         /*
