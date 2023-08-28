@@ -1,0 +1,6 @@
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.dll
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.pdb
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.AssemblyReference.cache
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.CoreCompileInputs.cache
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.dll
+F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.pdb
