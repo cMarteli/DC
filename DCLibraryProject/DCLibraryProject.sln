@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCBusinessTier", "DCBusinessTier\DCBusinessTier.csproj", "{7EB1D2E4-A4B2-4DB2-B012-340EE6AD37DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI_Async", "GUI_Async\GUI_Async.csproj", "{52E70509-4AE2-46E9-A607-577F43DA9A0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7EB1D2E4-A4B2-4DB2-B012-340EE6AD37DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EB1D2E4-A4B2-4DB2-B012-340EE6AD37DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EB1D2E4-A4B2-4DB2-B012-340EE6AD37DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52E70509-4AE2-46E9-A607-577F43DA9A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E70509-4AE2-46E9-A607-577F43DA9A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E70509-4AE2-46E9-A607-577F43DA9A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E70509-4AE2-46E9-A607-577F43DA9A0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

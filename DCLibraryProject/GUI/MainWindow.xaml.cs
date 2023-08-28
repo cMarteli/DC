@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using DCBusinessTier;
-using DCServer;
 using DCDatabase;
 using System.Security.Cryptography;
 using System.Reflection;
