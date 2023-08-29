@@ -89,13 +89,19 @@ namespace GUI_Async {
         }
 
         private async void Search_btnClick(object sender, RoutedEventArgs e) {
-            searchString = search_text_box.Text; //field modified here
-            Task<User> task = new Task<User>(SearchDB); //new task
-            task.Start();
-            //statusLabel.Content = "Searching starts....."; TODO: add search label to XML
-            User user = await task;
-            UpdateGUI(user);
-            //statusLabel.Content = "Searching ends.....";
+            try {
+                searchString = search_text_box.Text; //field modified here
+                Task<User> task = new Task<User>(SearchDB); //new task
+                task.Start();
+                //statusLabel.Content = "Searching starts....."; TODO: add search label to XML
+                User user = await task;
+                UpdateGUI(user);
+                //statusLabel.Content = "Searching ends.....";
+            } catch (Exception) {
+
+                throw;
+            }
+            
         }
 
         private User SearchDB() {

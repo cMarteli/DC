@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
@@ -12,6 +14,8 @@ using DCServer;
 namespace DCBusinessTier {
     internal class BusinessServer : BusinessServerInterface {
         private readonly DataServerInterface _businessServer;
+        /* New field for log count */
+        private uint LogNumber;
 
         public BusinessServer() {
             ChannelFactory<DataServerInterface> channelFactory;
@@ -20,13 +24,29 @@ namespace DCBusinessTier {
             string URL = "net.tcp://localhost:8100/DataService";
             channelFactory = new ChannelFactory<DataServerInterface>(tcp, URL);
             _businessServer = channelFactory.CreateChannel();
+
+            /* Initialize log count */
+            LogNumber = 0;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void Log(string logString) {
+            LogNumber++;
+            string logEntry = $"Log #{LogNumber}: {logString}\n";
+            
+            File.AppendAllText("BusinessServerLog.txt", logEntry);// Append log to a file
+
+            Console.WriteLine(logEntry) ;// Optional: Also write to console
         }
         public int GetNumEntries() {
-            return _businessServer.GetNumEntries();
+            int numEntries = _businessServer.GetNumEntries();
+            Log($"GetNumEntries called. Number of Entries: {numEntries}");
+            return numEntries;
         }
 
         public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
             _businessServer.GetValuesForEntry(index, out acctNo, out pin, out bal, out fName, out lName, out imgBytes);
+            Log($"GetValuesForEntry called with index: {index}. Account No: {acctNo}, PIN: {pin}, Balance: {bal}, First Name: {fName}, Last Name: {lName}");
         }
 
         public void GetValuesForSearch(string searchText, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
@@ -51,7 +71,13 @@ namespace DCBusinessTier {
                     break;
                 }
             }
-            //Thread.Sleep(4000); //Forced sleep for 4000ms
+            /* Add a log entry */
+            if (acctNo != 0) {
+                Log($"GetValuesForSearch called with search text: '{searchText}'. Match found with Account No: {acctNo}, PIN: {pin}, Balance: {bal}, First Name: {fName}, Last Name: {lName}");
+            }
+            else {
+                Log($"GetValuesForSearch called with search text: '{searchText}'. No match found.");
+            }
         }
     }
 }

@@ -1,0 +1,5 @@
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 2. Account No: 612911, PIN: 9385, Balance: 34878, First Name: mnzpqvjpjb, Last Name: uhuyijdoil
+Log #3: GetValuesForEntry called with index: 32423. Account No: 498257, PIN: 9416, Balance: 84032, First Name: ejsygmyaoo, Last Name: zxqamwnizz
+Log #4: GetValuesForEntry called with index: 2. Account No: 612911, PIN: 9385, Balance: 34878, First Name: mnzpqvjpjb, Last Name: uhuyijdoil
+Log #5: GetValuesForSearch called with search text: 'zxqamwnizz'. Match found with Account No: 498257, PIN: 9416, Balance: 84032, First Name: ejsygmyaoo, Last Name: zxqamwnizz
