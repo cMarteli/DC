@@ -16,7 +16,7 @@ namespace DCServer {
         public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
 
             try {
-                List<DataStruct> dcData = DatabaseClass.Instance.UserData();
+                List<User> dcData = DatabaseClass.Instance.UserData();
                 acctNo = dcData[index - 1].acctNo;
                 pin = dcData[index - 1].pin;
                 bal = dcData[index - 1].balance;

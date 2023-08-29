@@ -11,7 +11,7 @@ namespace DCDatabase {
         private static readonly Lazy<DatabaseClass> lazy = new Lazy<DatabaseClass>(() => new DatabaseClass());
         public static DatabaseClass Instance => lazy.Value;
 
-        private readonly List<DataStruct> cachedData;
+        private readonly List<User> cachedData;
 
         private DatabaseClass() {
             cachedData = GenerateUserData();
@@ -25,15 +25,15 @@ namespace DCDatabase {
             }
         }
 
-        private List<DataStruct> GenerateUserData() {
-            List<DataStruct> ds = new List<DataStruct>();
+        private List<User> GenerateUserData() {
+            List<User> ds = new List<User>();
             DBGenerator generator = new DBGenerator();
 
             for (int i = 0; i < NUMBER_OF_ENTRIES; i++) {
                 generator.GetNextAccount(out uint pin, out uint acctNo, out string firstName,
                     out string lastName, out int balance, out Bitmap image);
 
-                DataStruct entry = new DataStruct {
+                User entry = new User {
                     acctNo = acctNo,
                     pin = pin,
                     balance = balance,
@@ -49,7 +49,7 @@ namespace DCDatabase {
         }
 
         /** Caches data so generated values are the same **/
-        public List<DataStruct> UserData() {
+        public List<User> UserData() {
             return cachedData;
         }
     }

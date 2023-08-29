@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseClass.cs" />
-    <Compile Include="DataStruct.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="DBGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

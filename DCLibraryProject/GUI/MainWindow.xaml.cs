@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Threading;
 
 namespace GUI {
-    public delegate DataStruct SearchSurname(string searchString); // Delegate for searching surname
+    public delegate User SearchSurname(string searchString); // Delegate for searching surname
     public partial class MainWindow : Window {
         private BusinessServerInterface channel;
         private ChannelFactory<BusinessServerInterface> dataFactory;
@@ -52,7 +52,7 @@ namespace GUI {
         }
 
         /* Method to update UI fields */
-        private void UpdateGUI(DataStruct user) {
+        private void UpdateGUI(User user) {
             // Update all text fields at once
             Dispatcher.Invoke(() => {
                 acctNo_text_box.Text = user.acctNo.ToString();
@@ -104,12 +104,12 @@ namespace GUI {
             IAsyncResult result = searchSurname.BeginInvoke(search_text_box.Text, callback, null); //TODO; **searchSurname** was null.
         }
 
-        private DataStruct SearchDB(string searchString) {
+        private User SearchDB(string searchString) {
             /* Variables for storing the result */
             channel.GetValuesForSearch(searchString, out uint acctNo, out uint pin, out int bal, 
-                out string fName, out string lName, out byte[] imgBytes); //delegate assigned
+                out string fName, out string lName, out byte[] imgBytes);
             if (acctNo != 0) {
-                DataStruct user = new DataStruct();
+                User user = new User();
                 user.acctNo = acctNo;
                 user.pin = pin;
                 user.balance = bal;
@@ -123,7 +123,7 @@ namespace GUI {
 
         private void OnSearchCompletion(IAsyncResult asyncResult) {
 
-            DataStruct user = null;
+            User user = null;
             SearchSurname searchSurname = null;            
             AsyncResult asyncObj = (AsyncResult)asyncResult; // End the asynchronous call and get the results
             if (!asyncObj.EndInvokeCalled) {
