@@ -39,6 +39,19 @@ namespace GUI_Async {
             /* Update total entries */
             UpdateTotalEntries();
         }
+        /* Methods for disabling/re-enabling user input */
+        private void DisableInputs() {
+            go_index_btn.IsEnabled = false;
+            search_surname_btn.IsEnabled = false;
+            search_text_box.IsReadOnly = true;
+            index_text_box.IsReadOnly = true;
+        }
+        private void EnableInputs() {
+            go_index_btn.IsEnabled = true;
+            search_surname_btn.IsEnabled = true;
+            search_text_box.IsReadOnly = false;
+            index_text_box.IsReadOnly = false;
+        }
 
         /* Helper method for updating total entries */
         private void UpdateTotalEntries() {
@@ -92,19 +105,6 @@ namespace GUI_Async {
             }
             /* Re-enable buttons */
             EnableInputs();
-        }
-
-        private void DisableInputs() {
-            go_index_btn.IsEnabled = false;
-            search_surname_btn.IsEnabled = false;
-            search_text_box.IsReadOnly = true;
-            index_text_box.IsReadOnly = true;
-        }
-        private void EnableInputs() {
-            go_index_btn.IsEnabled = true;
-            search_surname_btn.IsEnabled = true;
-            search_text_box.IsReadOnly = false;
-            index_text_box.IsReadOnly = false;
         }
 
         private async void Search_btnClick(object sender, RoutedEventArgs e) {

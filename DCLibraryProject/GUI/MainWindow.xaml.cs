@@ -33,6 +33,19 @@ namespace GUI {
             UpdateTotalEntries();
         }
 
+        private void DisableInputs() {
+            go_index_btn.IsEnabled = false;
+            search_surname_btn.IsEnabled = false;
+            search_text_box.IsReadOnly = true;
+            index_text_box.IsReadOnly = true;
+        }
+        private void EnableInputs() {
+            go_index_btn.IsEnabled = true;
+            search_surname_btn.IsEnabled = true;
+            search_text_box.IsReadOnly = false;
+            index_text_box.IsReadOnly = false;
+        }
+
         /* Helper method for updating total entries */
         private void UpdateTotalEntries() {
             total_text_block.Text = $"Total Entries: {channel.GetNumEntries()}";
@@ -81,6 +94,7 @@ namespace GUI {
         }
 
         private void Go_btnClick(object sender, RoutedEventArgs e) {
+            DisableInputs();
             try {
                 channel.GetValuesForEntry(Int32.Parse(index_text_box.Text), out uint acctNo, out uint pin, out int bal,
                     out string fName, out string lName, out byte[] imageBytes);
@@ -100,16 +114,18 @@ namespace GUI {
             } catch (CommunicationException cex) {
                 Console.WriteLine($"{cex.Message} {cex.InnerException} {cex.StackTrace}");
             }
-
+            EnableInputs();
         }
         /* Search button click method, Runs on a separate thread */
         private void Search_btnClick(object sender, RoutedEventArgs e) {
+            DisableInputs();
             status_label.Visibility = Visibility.Visible;
             status_label.Content = "Searching...";
             searchSurname = SearchByName; //points delegate to SearchByName
             AsyncCallback callback = this.OnSearchCompletion; // Initialize the delegate and callback
             /* Start the asynchronous operation */
             IAsyncResult result = searchSurname.BeginInvoke(search_text_box.Text, callback, null);
+            EnableInputs();
         }
 
         private User SearchByName(string searchString) {
