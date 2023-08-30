@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DCDatabase;
 
 namespace DCServer {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     internal class DataServer : DataServerInterface {
         public int GetNumEntries() {
             return DatabaseClass.Instance.UserData().Count;
@@ -16,6 +16,9 @@ namespace DCServer {
         public void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes) {
 
             try {
+                if (index <= 0 || index > DatabaseClass.Instance.UserData().Count) {
+                    throw new ArgumentOutOfRangeException();
+                }
                 List<User> dcData = DatabaseClass.Instance.UserData();
                 acctNo = dcData[index - 1].acctNo;
                 pin = dcData[index - 1].pin;
@@ -25,15 +28,21 @@ namespace DCServer {
                 imgBytes = dcData[index - 1].imageBytes;
 
             } catch (FormatException) {
-                IndexFault inf = new IndexFault();
-                inf.FunctionName = "GetValuesForEntry";
-                inf.Reason = "Incorrect Input Type";
-                throw new FaultException<IndexFault>(inf);
+                IndexFault inf = new IndexFault {
+                    FunctionName = "GetValuesForEntry"
+                };
+                inf.ReasonText = new FaultReasonText($"Incorrect Input Type. At function: {inf.FunctionName}");
+                FaultReason reason = new FaultReason(inf.ReasonText);
+
+                throw new FaultException(reason);
             } catch (ArgumentOutOfRangeException) {
-                IndexFault inf = new IndexFault();
-                inf.FunctionName = "GetValuesForEntry";
-                inf.Reason = "index out of range";
-                throw new FaultException<IndexFault>(inf);
+                IndexFault inf = new IndexFault {
+                    FunctionName = "GetValuesForEntry"
+                };
+                inf.ReasonText = new FaultReasonText($"Index out of range. At function: {inf.FunctionName}");
+                FaultReason reason = new FaultReason(inf.ReasonText);
+
+                throw new FaultException(reason);
             }
 
         }

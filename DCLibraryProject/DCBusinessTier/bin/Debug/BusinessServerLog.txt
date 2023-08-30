@@ -3,3 +3,64 @@ Log #2: GetValuesForEntry called with index: 2. Account No: 612911, PIN: 9385, B
 Log #3: GetValuesForEntry called with index: 32423. Account No: 498257, PIN: 9416, Balance: 84032, First Name: ejsygmyaoo, Last Name: zxqamwnizz
 Log #4: GetValuesForEntry called with index: 2. Account No: 612911, PIN: 9385, Balance: 34878, First Name: mnzpqvjpjb, Last Name: uhuyijdoil
 Log #5: GetValuesForSearch called with search text: 'zxqamwnizz'. Match found with Account No: 498257, PIN: 9416, Balance: 84032, First Name: ejsygmyaoo, Last Name: zxqamwnizz
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 44. Account No: 597363, PIN: 3360, Balance: 31418, First Name: eanoscydwr, Last Name: ejixwsrpxe
+Log #3: GetValuesForEntry called with index: 43534. Account No: 624668, PIN: 9960, Balance: 77449, First Name: pecuioysyw, Last Name: ruwvooepqt
+Log #4: GetValuesForEntry called with index: 1. Account No: 926156, PIN: 4834, Balance: 45776, First Name: kftpsedvem, Last Name: rpitcllhpd
+Log #5: GetValuesForSearch called with search text: 'ruwvooepqt'. Match found with Account No: 624668, PIN: 9960, Balance: 77449, First Name: pecuioysyw, Last Name: ruwvooepqt
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 2. Account No: 116409, PIN: 5316, Balance: 94609, First Name: qodmtmzpnq, Last Name: xlpaszeaod
+Log #3: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #4: GetValuesForEntry called with index: 5. Account No: 887665, PIN: 2559, Balance: 76580, First Name: xishxzsvwp, Last Name: cuobkmiptr
+Log #5: GetValuesForSearch called with search text: 'xlpaszeaod'. Match found with Account No: 116409, PIN: 5316, Balance: 94609, First Name: qodmtmzpnq, Last Name: xlpaszeaod
+Log #6: GetValuesForEntry called with index: 5645. Account No: 636574, PIN: 5908, Balance: 44204, First Name: rooxxpxsik, Last Name: ocxycdqhjm
+Log #7: GetValuesForEntry called with index: 1. Account No: 383686, PIN: 6869, Balance: 96693, First Name: llbqutvqqz, Last Name: udmmqccdps
+Log #8: GetValuesForSearch called with search text: 'ocxycdqhjm'. Match found with Account No: 636574, PIN: 5908, Balance: 44204, First Name: rooxxpxsik, Last Name: ocxycdqhjm
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: '-1'. No match found.
+Log #3: GetValuesForSearch called with search text: '98903473205732073205732095327509732059372509327532095732057320532750932570239573209573209537250932750239573290573250937259023702357230957320957230957325095732000000000000000000000000000000000000000000000000537953739753295379572035793205723059732509237539257230572305723095723059237095237059'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 12321. Account No: 762038, PIN: 6177, Balance: 77097, First Name: hqdhldpjhz, Last Name: vssbnomtvq
+Log #3: GetValuesForEntry called with index: 2. Account No: 158686, PIN: 9447, Balance: 11863, First Name: dnjrzxgxau, Last Name: rcgcaorueb
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 53453. Account No: 363812, PIN: 3401, Balance: 73383, First Name: nviwmcyzbj, Last Name: pfatkskkmz
+Log #3: GetValuesForEntry called with index: 1. Account No: 186274, PIN: 5135, Balance: 98910, First Name: qamlfpsdul, Last Name: yqzzptclhv
+Log #4: GetValuesForEntry called with index: 2. Account No: 805201, PIN: 4854, Balance: 61393, First Name: sefcyfijqh, Last Name: ozkjozwkot
+Log #5: GetValuesForSearch called with search text: 'pfatkskkmz'. Match found with Account No: 363812, PIN: 3401, Balance: 73383, First Name: nviwmcyzbj, Last Name: pfatkskkmz
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #3: GetValuesForEntry called with index: 34324. Account No: 779155, PIN: 6583, Balance: 76016, First Name: blyxmimvoe, Last Name: tabnksndzu
+Log #4: GetValuesForEntry called with index: 1. Account No: 154591, PIN: 4394, Balance: 17697, First Name: ljhrkwkexq, Last Name: pjuiysesfp
+Log #5: GetValuesForSearch called with search text: 'tabnksndzu'. Match found with Account No: 779155, PIN: 6583, Balance: 76016, First Name: blyxmimvoe, Last Name: tabnksndzu
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 76867. Account No: 773843, PIN: 1327, Balance: 68174, First Name: sohimosyal, Last Name: ajvrejxexi
+Log #3: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 34234. Account No: 905014, PIN: 9721, Balance: 39290, First Name: vawnnecsjr, Last Name: suifjucoag
+Log #3: GetValuesForSearch called with search text: 'suifjucoag'. Match found with Account No: 905014, PIN: 9721, Balance: 39290, First Name: vawnnecsjr, Last Name: suifjucoag
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'Surname?'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 34243. Account No: 856897, PIN: 5968, Balance: 61225, First Name: ddjvgwbjyl, Last Name: vnvmbgljvj
+Log #3: GetValuesForSearch called with search text: 'vnvmbgljvj'. Match found with Account No: 856897, PIN: 5968, Balance: 61225, First Name: ddjvgwbjyl, Last Name: vnvmbgljvj
+Log #4: GetValuesForSearch called with search text: 'vnvmbgljv'. Match found with Account No: 856897, PIN: 5968, Balance: 61225, First Name: ddjvgwbjyl, Last Name: vnvmbgljvj
+Log #5: GetValuesForSearch called with search text: 'cghcv'. No match found.

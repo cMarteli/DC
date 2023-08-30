@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using DCServer;
 
 namespace DCBusinessTier {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     internal class BusinessServer : BusinessServerInterface {
         private readonly DataServerInterface _businessServer;
         /* New field for log count */

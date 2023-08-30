@@ -8,7 +8,7 @@ using System.Drawing;
 using DCServer;
 
 namespace DCBusinessTier {
-    [ServiceContract]
+    [ServiceContract(Namespace="DCServer")]
     public interface BusinessServerInterface {
         [OperationContract]
         int GetNumEntries();
@@ -17,6 +17,7 @@ namespace DCBusinessTier {
         void GetValuesForEntry(int index, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes);
 
         [OperationContract]
+        [FaultContract(typeof(IndexFault))]
         void GetValuesForSearch(string searchText, out uint acctNo, out uint pin, out int bal, out string fName, out string lName, out byte[] imgBytes);
     }
 }

@@ -55,23 +55,29 @@ namespace GUI {
         private void UpdateGUI(User user) {
             // Update all text fields at once
             Dispatcher.Invoke(() => {
-                acctNo_text_box.Text = user.acctNo.ToString();
-                pin_text_box.Text = user.pin.ToString("D4");
-                balance_text_box.Text = user.balance.ToString("C");
-                fName_text_box.Text = user.firstName;
-                lName_text_box.Text = user.lastName;
+                String endStatus = "User not found.";
+                if (user != null) {
+                    acctNo_text_box.Text = user.acctNo.ToString();
+                    pin_text_box.Text = user.pin.ToString("D4");
+                    balance_text_box.Text = user.balance.ToString("C");
+                    fName_text_box.Text = user.firstName;
+                    lName_text_box.Text = user.lastName;
 
-                /* Updates image. ***NOTE: Code repetition but if we try to call BytesToBitmapSource() from here
-                 * we get a System.InvalidOperationException */
-                using (MemoryStream ms = new MemoryStream(user.imageBytes)) {
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = ms;
-                    bitmapImage.EndInit();
-                    image_box.Source = bitmapImage;
+                    /* Updates image. ***NOTE: Code repetition but if we try to call BytesToBitmapSource() from here
+                     * we get a System.InvalidOperationException */
+                    using (MemoryStream ms = new MemoryStream(user.imageBytes)) {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.StreamSource = ms;
+                        bitmapImage.EndInit();
+                        image_box.Source = bitmapImage;
+                    }
+                    endStatus = "End of Search.";
                 }
+                status_label.Content = endStatus;
             });
+
         }
 
         private void Go_btnClick(object sender, RoutedEventArgs e) {
@@ -83,28 +89,31 @@ namespace GUI {
                 balance_text_box.Text = bal.ToString("C");
                 fName_text_box.Text = fName;
                 lName_text_box.Text = lName;
-                image_box.Source = BytesToBitmapSource(imageBytes); //TODO: Might need to check for null
+                image_box.Source = BytesToBitmapSource(imageBytes);
 
-            } catch (FormatException) {
-                fName_text_box.Text = "Not a valid number";
-            } catch (FaultException<IndexFault> fex) {
-                Console.WriteLine($"Fault while getting value: {fex.Detail.FunctionName}. Problem: {fex.Detail.Reason}");
-                fName_text_box.Text = "Index out of range";
+            } catch (FaultException fex) {
+                Console.WriteLine(fex.Reason);
+                status_label.Content = "Invalid Index";
+            //} catch (FaultException fex) {
+            //    Console.WriteLine(fex.Reason);
+            //    status_label.Content = "Invalid Index";
             } catch (CommunicationException cex) {
                 Console.WriteLine($"{cex.Message} {cex.InnerException} {cex.StackTrace}");
             }
+
         }
         /* Search button click method, Runs on a separate thread */
         private void Search_btnClick(object sender, RoutedEventArgs e) {
-            
-            searchSurname = SearchDB; //points delegate to SearchDB
+            status_label.Visibility = Visibility.Visible;
+            status_label.Content = "Searching...";
+            searchSurname = SearchByName; //points delegate to SearchByName
             AsyncCallback callback = this.OnSearchCompletion; // Initialize the delegate and callback
-
             /* Start the asynchronous operation */
-            IAsyncResult result = searchSurname.BeginInvoke(search_text_box.Text, callback, null); //TODO; **searchSurname** was null.
+            IAsyncResult result = searchSurname.BeginInvoke(search_text_box.Text, callback, null);
         }
 
-        private User SearchDB(string searchString) {
+        private User SearchByName(string searchString) {
+
             /* Variables for storing the result */
             channel.GetValuesForSearch(searchString, out uint acctNo, out uint pin, out int bal, 
                 out string fName, out string lName, out byte[] imgBytes);
@@ -124,14 +133,14 @@ namespace GUI {
         private void OnSearchCompletion(IAsyncResult asyncResult) {
 
             User user = null;
-            SearchSurname searchSurname = null;            
+            SearchSurname searchSurname = null;
+
             AsyncResult asyncObj = (AsyncResult)asyncResult; // End the asynchronous call and get the results
             if (!asyncObj.EndInvokeCalled) {
                 searchSurname = (SearchSurname)asyncObj.AsyncDelegate;
-                user = searchSurname.EndInvoke(asyncObj);                
+                user = searchSurname.EndInvoke(asyncObj);
                 UpdateGUI(user); // Update the GUI
             }
-
             asyncObj.AsyncWaitHandle.Close(); //Clean up
         }
     }

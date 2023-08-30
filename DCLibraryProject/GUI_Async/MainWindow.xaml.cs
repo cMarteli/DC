@@ -68,6 +68,7 @@ namespace GUI_Async {
         }
 
         private void Go_btnClick(object sender, RoutedEventArgs e) {
+            DisableInputs();
             try {
                 channel.GetValuesForEntry(Int32.Parse(index_text_box.Text), out uint acctNo, out uint pin, out int bal,
                     out string fName, out string lName, out byte[] imageBytes);
@@ -78,33 +79,60 @@ namespace GUI_Async {
                 lName_text_box.Text = lName;
                 image_box.Source = BytesToBitmapSource(imageBytes); //TODO: Might need to check for null
 
-            } catch (FormatException) {
-                fName_text_box.Text = "Not a valid number";
-            } catch (FaultException<IndexFault> fex) {
-                Console.WriteLine($"Fault while getting value: {fex.Detail.FunctionName}. Problem: {fex.Detail.Reason}");
-                fName_text_box.Text = "Index out of range";
+            //} catch (FormatException) {
+            //    fName_text_box.Text = "Not a valid number";
+            //} catch (FaultException<IndexFault> fex) {
+            //    Console.WriteLine($"Fault while getting value: {fex.Detail.FunctionName}. Problem: {fex.Detail.Reason}");
+            //    fName_text_box.Text = "Index out of range";
+            } catch (FaultException fex) {
+                Console.WriteLine(fex.Reason);
+                status_label.Content = "Invalid Index";
             } catch (CommunicationException cex) {
                 Console.WriteLine($"{cex.Message} {cex.InnerException} {cex.StackTrace}");
             }
+            /* Re-enable buttons */
+            EnableInputs();
+        }
+
+        private void DisableInputs() {
+            go_index_btn.IsEnabled = false;
+            search_surname_btn.IsEnabled = false;
+            search_text_box.IsReadOnly = true;
+            index_text_box.IsReadOnly = true;
+        }
+        private void EnableInputs() {
+            go_index_btn.IsEnabled = true;
+            search_surname_btn.IsEnabled = true;
+            search_text_box.IsReadOnly = false;
+            index_text_box.IsReadOnly = false;
         }
 
         private async void Search_btnClick(object sender, RoutedEventArgs e) {
+            DisableInputs();
             try {
                 searchString = search_text_box.Text; //field modified here
-                Task<User> task = new Task<User>(SearchDB); //new task
+                String endStatus = "User not found.";
+                Task<User> task = new Task<User>(SearchByName); //new task
                 task.Start();
-                //statusLabel.Content = "Searching starts....."; TODO: add search label to XML
+                status_label.Visibility = Visibility.Visible;
+                status_label.Content = "Searching...";
                 User user = await task;
-                UpdateGUI(user);
-                //statusLabel.Content = "Searching ends.....";
+                if(user != null) { //if user is found
+                    UpdateGUI(user);
+                    endStatus = "End of Search.";
+                }
+                status_label.Content = endStatus;
+
+
             } catch (Exception) {
 
                 throw;
             }
-            
+            /* Re-enable buttons */
+            EnableInputs();
         }
 
-        private User SearchDB() {
+        private User SearchByName() {
             /* Variables for storing the result */
             channel.GetValuesForSearch(searchString, out uint acctNo, out uint pin, out int bal,
                 out string fName, out string lName, out byte[] imgBytes);

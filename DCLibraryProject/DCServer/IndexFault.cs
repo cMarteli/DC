@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,8 @@ namespace DCServer {
     [DataContract]
     public class IndexFault {
         private string functionFault;
-        private string problemType;
+        private FaultReasonText reasonText;
+        private FaultReasonText reason;
 
         [DataMember]
         public string FunctionName {
@@ -19,9 +21,10 @@ namespace DCServer {
         }
 
         [DataMember]
-        public string Reason {
-            get { return problemType; }
-            set { problemType = value; }
+        public FaultReasonText ReasonText {
+            get { return reasonText; }
+            set { reasonText = value; }
         }
+
     }
 }

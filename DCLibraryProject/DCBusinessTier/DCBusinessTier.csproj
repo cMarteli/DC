@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="BusinessServer.cs" />
     <Compile Include="BusinessServerInterface.cs" />
-    <Compile Include="IndexFault.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
