@@ -4,3 +4,9 @@ F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.As
 F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.CoreCompileInputs.cache
 F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.dll
 F:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.dll
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\bin\Debug\DCLibraryProject.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.AssemblyReference.cache
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCDatabase.csproj.CoreCompileInputs.cache
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.dll
+H:\Uni\DC\repos\DCLibraryProject\DCLibraryProject\obj\Debug\DCLibraryProject.pdb

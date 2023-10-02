@@ -108,9 +108,6 @@ namespace GUI {
             } catch (FaultException fex) {
                 Console.WriteLine(fex.Reason);
                 status_label.Content = "Invalid Index";
-            //} catch (FaultException fex) {
-            //    Console.WriteLine(fex.Reason);
-            //    status_label.Content = "Invalid Index";
             } catch (CommunicationException cex) {
                 Console.WriteLine($"{cex.Message} {cex.InnerException} {cex.StackTrace}");
             }

@@ -12,3 +12,17 @@ F:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.
 F:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.CopyComplete
 F:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.exe
 F:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCBusinessTier.exe.config
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCBusinessTier.exe
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCBusinessTier.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCServer.exe
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCLibraryProject.dll
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCServer.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCServer.exe.config
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\bin\Debug\DCLibraryProject.pdb
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.AssemblyReference.cache
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.SuggestedBindingRedirects.cache
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.CoreCompileInputs.cache
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.csproj.CopyComplete
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.exe
+H:\Uni\DC\repos\DCLibraryProject\DCBusinessTier\obj\Debug\DCBusinessTier.pdb

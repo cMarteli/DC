@@ -64,3 +64,17 @@ Log #2: GetValuesForEntry called with index: 34243. Account No: 856897, PIN: 596
 Log #3: GetValuesForSearch called with search text: 'vnvmbgljvj'. Match found with Account No: 856897, PIN: 5968, Balance: 61225, First Name: ddjvgwbjyl, Last Name: vnvmbgljvj
 Log #4: GetValuesForSearch called with search text: 'vnvmbgljv'. Match found with Account No: 856897, PIN: 5968, Balance: 61225, First Name: ddjvgwbjyl, Last Name: vnvmbgljvj
 Log #5: GetValuesForSearch called with search text: 'cghcv'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForEntry called with index: 1. Account No: 504806, PIN: 3050, Balance: 97489, First Name: ikrkwlzzwn, Last Name: mverqsyvzz
+Log #3: GetValuesForEntry called with index: 2. Account No: 310040, PIN: 4504, Balance: 37839, First Name: rgeawdfglh, Last Name: bnegwmpupj
+Log #4: GetValuesForEntry called with index: 12344. Account No: 843480, PIN: 5540, Balance: 10685, First Name: jcezmwonzf, Last Name: hutaazzepn
+Log #5: GetValuesForEntry called with index: 999. Account No: 226029, PIN: 2827, Balance: 81354, First Name: jbmhqsfskv, Last Name: wvxdwtnucc
+Log #6: GetValuesForEntry called with index: 9999. Account No: 387881, PIN: 8867, Balance: 60846, First Name: blrbtznths, Last Name: vpfshsopic
+Log #7: GetValuesForSearch called with search text: 'vpfshsopic'. Match found with Account No: 387881, PIN: 8867, Balance: 60846, First Name: blrbtznths, Last Name: vpfshsopic
+Log #8: GetValuesForEntry called with index: 1. Account No: 504806, PIN: 3050, Balance: 97489, First Name: ikrkwlzzwn, Last Name: mverqsyvzz
+Log #9: GetValuesForSearch called with search text: 'vpfshsopic'. Match found with Account No: 387881, PIN: 8867, Balance: 60846, First Name: blrbtznths, Last Name: vpfshsopic
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'asads'. No match found.
+Log #1: GetNumEntries called. Number of Entries: 100000
+Log #2: GetValuesForSearch called with search text: 'Surname?'. No match found.
