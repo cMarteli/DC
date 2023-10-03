@@ -6,70 +6,41 @@ using System.IO;
 
 namespace WebAPI.Models.User {
     public class UserList {
-        private const int NUMBER_OF_ENTRIES = 1_000;
-        private static readonly Lazy<UserList> lazy =
-            new Lazy<UserList>(() => new UserList(), true); // Thread-safe lazy initialization
-        public static UserList Instance => lazy.Value;
+        private const int NUMBER_OF_ENTRIES = 1_00;
 
-        private readonly ConcurrentDictionary<uint, User> cachedData;
+        public static List<User> users = new List<User>();
 
-        private UserList() {
-            cachedData = new ConcurrentDictionary<uint, User>(GenerateUserData());
+        public static List<User> AllUsers() {
+            return users;
         }
-
-        public static byte[] BitmapToByteArray(Bitmap bitmap) {
-            using (MemoryStream stream = new MemoryStream()) {
-                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
+        public static void AddUser(User user) {
+            users.Add(user);
         }
-
-        public static void Generate() {
-            var _ = UserList.Instance.UserData(); // Call to trigger initialization if needed
-        }
-
-        private IDictionary<uint, User> GenerateUserData() {
-            var ds = new Dictionary<uint, User>();
-            UserGenerator generator = new UserGenerator();
-
-            for (int i = 0; i < NUMBER_OF_ENTRIES; i++) {
-                generator.GetNextAccount(out uint pin, out uint acctNo, out string firstName,
-                    out string lastName, out int balance, out Bitmap image);
-
-                User entry = new User {
-                    acctNo = acctNo,
-                    pin = pin,
-                    balance = balance,
-                    firstName = firstName,
-                    lastName = lastName,
-                    imageBytes = BitmapToByteArray(image)
-                };
-
-                ds.Add(acctNo, entry);
-            }
-
-            return ds;
-        }
-
-        public IEnumerable<User> UserData() {
-            return cachedData.Values;
-        }
-
-        public void AddUser(User newUser) {
-            if (!cachedData.TryAdd(newUser.acctNo, newUser)) {
-                throw new ArgumentException($"User with account number {newUser.acctNo} already exists.");
-            }
-        }
-
-        public bool DeleteUser(uint acctNo) {
-            return cachedData.TryRemove(acctNo, out _);
-        }
-
-        public User GetUserByAcct(uint acctNo) {
-            if (cachedData.TryGetValue(acctNo, out User user)) {
-                return user;
+        public static User GetUserByAcct(uint acct) {
+            foreach (User user in users) {
+                if (user.acctNo == acct) {
+                    return user;
+                }
             }
             return null;
+        }
+        public static void Generate() {
+            UserGenerator generator = new UserGenerator();
+            for (int i = 0; i < NUMBER_OF_ENTRIES; i++) {
+                uint pin, acctNo;
+                string firstName, lastName;
+                int balance;
+                byte[]? imageBytes;
+                generator.GetNextAccount(out acctNo, out pin, out firstName, out lastName, out balance, out imageBytes);
+                User user = new User();
+                user.acctNo = acctNo;
+                user.pin = pin;
+                user.balance = balance;
+                user.firstName = firstName;
+                user.lastName = lastName;
+                user.imageBytes = imageBytes;
+                users.Add(user);
+            }
         }
     }
 }

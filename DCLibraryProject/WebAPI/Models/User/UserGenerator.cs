@@ -4,25 +4,25 @@ using System.Drawing;
 using System.Text;
 
 namespace WebAPI.Models.User {
-    internal class UserGenerator {
+    public class UserGenerator {
 
         private static Random random = new Random();
         private HashSet<uint> generatedAccountNumbers = new HashSet<uint>();
 
         private const int NAME_SIZE = 10;
-        private const int MAX_PIN_DIGITS = 4;
         private const int MAX_ACCT_DIGITS = 6;
+        private const int MAX_PIN_DIGITS = 4;        
         private const int MIN_BALANCE = 100;
         private const int MAX_BALANCE = 100_000;
         private const int BITMAP_SIZE = 4;
 
-        public void GetNextAccount(out uint pin, out uint acctNo, out string firstName, out string lastName, out int balance, out Bitmap image) {
-            pin = GetPIN();
+        public void GetNextAccount(out uint acctNo, out uint pin, out string firstName, out string lastName, out int balance, out byte[] imageBytes) {
             acctNo = GetUniqueAcctNo();
+            pin = GetPIN();            
             firstName = GetFirstName();
             lastName = GetLastName();
             balance = GetBalance();
-            image = GetBitmap();
+            imageBytes = GetImageBytes();
         }
 
         private string GetFirstName() {
@@ -51,8 +51,10 @@ namespace WebAPI.Models.User {
             return random.Next(MIN_BALANCE, MAX_BALANCE);
         }
 
-        private Bitmap GetBitmap() {
-            return GenerateBitmap(BITMAP_SIZE);
+        //Generates a bitmap image and serializes it to a byte array
+        private byte[] GetImageBytes() {
+            GenerateBitmap(BITMAP_SIZE); //first generate a bitmap by the default dimensions
+            return BitmapToByteArray(GenerateBitmap(BITMAP_SIZE)); //return the serialized bitmap
         }
 
         private string GenerateRandomName(int maxSize) {
@@ -73,6 +75,14 @@ namespace WebAPI.Models.User {
             int maxValue = (int)Math.Pow(10, numDigits);
 
             return (uint)random.Next(minValue, maxValue);
+        }
+
+        /** Helper method to serialize bitmap image **/
+        public static byte[] BitmapToByteArray(Bitmap bitmap) {
+            using (MemoryStream stream = new MemoryStream()) {
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
         }
 
         private Bitmap GenerateBitmap(int bSize) {
