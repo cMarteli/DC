@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "inmZRh4P7BrNvzaPJF7VAinpgZ/279RxzZEsPKWEHS5GFxW1Y/LOOy3cAJcB/mAtiP/LSgy8dryyIIl2W6oiNQ==",
+  "success": true,
+  "projectFilePath": "H:\\Uni\\DC\\repos\\DCWebAPIProject\\GUI\\GUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cvmar\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\restsharp\\110.2.0\\restsharp.110.2.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\cvmar\\.nuget\\packages\\system.text.json\\7.0.3\\system.text.json.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,42 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="556" Width="514">
+    <Grid Margin="10,17,10,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="158*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="fName_text_box" HorizontalAlignment="Left" Height="27" Margin="17,10,0,0" TextWrapping="Wrap" Text="FirstName" VerticalAlignment="Top" Width="263" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox x:Name="lName_text_box" HorizontalAlignment="Left" Height="27" Margin="18,42,0,0" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Top" Width="262" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox x:Name="acctNo_text_box" HorizontalAlignment="Left" Height="27" Margin="18,100,0,0" TextWrapping="Wrap" Text="AcctNo" VerticalAlignment="Top" Width="262" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox x:Name="pin_text_box" HorizontalAlignment="Left" Height="27" Margin="18,155,0,0" TextWrapping="Wrap" Text="Pin" VerticalAlignment="Top" Width="262" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox x:Name="balance_text_box" HorizontalAlignment="Left" Height="26" Margin="18,214,0,0" TextWrapping="Wrap" Text="Balance" VerticalAlignment="Top" Width="262" Grid.Column="1" IsReadOnly="True"/>
+        <Separator HorizontalAlignment="Center" Margin="0,274,0,0" VerticalAlignment="Top" Height="27" RenderTransformOrigin="0.5,0.5" Width="802" Grid.Column="1">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <TextBox x:Name="index_text_box" HorizontalAlignment="Left" Height="27" Margin="18,350,0,0" TextWrapping="Wrap" Text="Index?" MaxLength="6" InputScope="Number" VerticalAlignment="Top" Width="71" Grid.Column="1"/>
+        <Button x:Name="go_index_btn" Content="Go!" HorizontalAlignment="Left" Margin="113,354,0,0" VerticalAlignment="Top" Height="23" Width="66" Click="Go_btnClick" Grid.Column="1"/>
+        <TextBlock x:Name="total_text_block" Margin="17,259,206,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Height="16"><Run Text="Total "/><Run Text="Entries"/><Run Text=":"/><Run Language="en-au" Text=" #######"/></TextBlock>
+        <Label Content="Account No:" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="75"/>
+        <Label Content="Pin:" HorizontalAlignment="Left" Margin="18,132,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="29"/>
+        <Label Content="Balance:" HorizontalAlignment="Left" Margin="18,187,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="53"/>
+        <Image x:Name="image_box" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="332,24,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Grid.Column="1" Content="Find entry by:" HorizontalAlignment="Left" Margin="17,310,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.224,0.536"/>
+        <TextBox x:Name="search_text_box" HorizontalAlignment="Left" Height="27" Margin="18,398,0,0" TextWrapping="Wrap" Text="Name?" MaxLength="10" VerticalAlignment="Top" Width="71" Grid.Column="1"/>
+        <Button x:Name="search_surname_btn" Grid.Column="1" Content="Search!" HorizontalAlignment="Left" Margin="113,402,0,0" VerticalAlignment="Top" Width="66" Height="23" Click="Search_btnClick"/>
+        <Label x:Name="status_label" Grid.Column="1" Content="Search Status" HorizontalAlignment="Left" Margin="18,438,0,0" VerticalAlignment="Top" Width="182" FontWeight="Bold" Visibility="Collapsed"/>
+        
+    </Grid>
+</Window>
