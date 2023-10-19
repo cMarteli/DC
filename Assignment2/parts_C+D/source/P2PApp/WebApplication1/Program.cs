@@ -1,4 +1,4 @@
-using WebApplication1.Data;
+using DataServer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

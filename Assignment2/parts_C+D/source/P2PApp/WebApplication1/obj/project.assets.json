@@ -3883,9 +3883,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\WebApplication1.csproj",
-      "projectName": "WebApplication1",
-      "projectPath": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\DataServer.csproj",
+      "projectName": "DataServer",
+      "projectPath": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\DataServer.csproj",
       "packagesPath": "C:\\Users\\cvmar\\.nuget\\packages\\",
       "outputPath": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",

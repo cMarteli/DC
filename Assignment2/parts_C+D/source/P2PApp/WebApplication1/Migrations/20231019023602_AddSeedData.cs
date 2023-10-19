@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace WebApplication1.Migrations
+namespace DataServer.Migrations
 {
     /// <inheritdoc />
     public partial class AddSeedData : Migration

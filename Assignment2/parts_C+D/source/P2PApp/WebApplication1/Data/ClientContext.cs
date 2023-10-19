@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+﻿using DataServer.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication1.Data {
+namespace DataServer.Data {
     public class ClientContext : DbContext {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

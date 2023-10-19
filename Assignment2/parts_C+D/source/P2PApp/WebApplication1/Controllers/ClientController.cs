@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataServer.Data;
+using DataServer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using WebApplication1.Data;
-using WebApplication1.Models;
 
-namespace WebApplication1.Controllers {
+namespace DataServer.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase {
+    public class ClientController : Controller {
         private readonly ClientContext _context;
 
         public ClientController(ClientContext context) {
@@ -22,7 +22,6 @@ namespace WebApplication1.Controllers {
                 string jsonResponse = JsonConvert.SerializeObject(clientList);
                 return Content(jsonResponse, "application/json");
             } catch (Exception ex) {
-                // Log the exception (consider using a logging framework)
                 return StatusCode(500, new { message = "An error occurred while fetching clients.", details = ex.Message });
             }
         }
@@ -76,7 +75,6 @@ namespace WebApplication1.Controllers {
                 // Add client to database
                 _context.Clients.Add(client);
                 _context.SaveChanges();
-
                 string jsonResponse = JsonConvert.SerializeObject(new { success = true });
                 return Content(jsonResponse, "application/json");
             } catch (DbUpdateException ex) {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication1.Data;
+using DataServer.Data;
 
 #nullable disable
 
-namespace WebApplication1.Migrations
+namespace DataServer.Migrations
 {
     [DbContext(typeof(ClientContext))]
     [Migration("20231019023602_AddSeedData")]
@@ -20,7 +20,7 @@ namespace WebApplication1.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
-            modelBuilder.Entity("WebApplication1.Models.Client", b =>
+            modelBuilder.Entity("DataServer.Models.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

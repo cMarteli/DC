@@ -1,9 +1,12 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{E8F78616-2CF9-437B-9C48-79921EB0AF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataServer", "WebApplication1\DataServer.csproj", "{E8F78616-2CF9-437B-9C48-79921EB0AF00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2PClient", "GUI\P2PClient.csproj", "{5DAFB6D0-E65B-42C0-B8DB-32503D1457A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard", "Dashboard\Dashboard.csproj", "{735EBC7B-0ECE-4297-8CF7-8E4D168AAF67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +18,14 @@ Global
 		{E8F78616-2CF9-437B-9C48-79921EB0AF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8F78616-2CF9-437B-9C48-79921EB0AF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8F78616-2CF9-437B-9C48-79921EB0AF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DAFB6D0-E65B-42C0-B8DB-32503D1457A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DAFB6D0-E65B-42C0-B8DB-32503D1457A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DAFB6D0-E65B-42C0-B8DB-32503D1457A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DAFB6D0-E65B-42C0-B8DB-32503D1457A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735EBC7B-0ECE-4297-8CF7-8E4D168AAF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735EBC7B-0ECE-4297-8CF7-8E4D168AAF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735EBC7B-0ECE-4297-8CF7-8E4D168AAF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735EBC7B-0ECE-4297-8CF7-8E4D168AAF67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
