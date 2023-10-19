@@ -1,0 +1,25 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.navbar {}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-li {
+    margin-right: 1rem;
+}
+
+.nav-a {
+    color: #333;
+    text-decoration: underline;
+}

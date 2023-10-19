@@ -1,0 +1,122 @@
+﻿@* @model WebApp.Models.User *@
+
+@{
+    ViewData["Title"] = "Admin Transaction Management";
+}
+<nav class="navbar">
+    <ul class="nav-ul">
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('admin')">Admin</a>
+        </li>
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('adminusers')">User Management</a>
+        </li>
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('admintransactions')">Transaction Management</a>
+        </li>
+    </ul>
+</nav>
+
+<h1 id="status">
+    Welcome!
+</h1>
+
+<form>
+    <div class="form-div">
+        <label for="search">Search Transactions:</label>
+        <input type="text" name="search" id="AdminSearchText" placeholder="..." />
+    </div>
+    <div>
+        <button type="button" id="SubmitSearchAdminTransactionButton" onclick="adminSearchTransactions()">Search</button>
+    </div>
+</form>
+
+<br />
+
+<form>
+    <div class="form-div">
+        <label for="accountSelector">Select Account:</label>
+        <select id="adminAccountSelector" name="accountSelector">
+            @if (ViewData.ContainsKey("BankAccounts") && ViewData["BankAccounts"] != null)
+            {
+                List<BankAccount>? accounts = ViewData["BankAccounts"] as List<BankAccount>;
+                if (accounts != null)
+                {
+                    @foreach (var account in accounts)
+                    {
+                        <option value="@account.AccountNumber">@account.AccountNumber</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div>
+        <button type="button" id="SubmitFilterAdminTransactionButton" onclick="adminFilterTransactions()">Filter by Account Number</button>
+    </div>
+</form>
+
+<br />
+
+<form>
+    <div class="form-div">
+        <label for="accoutSorter">Select Account:</label>
+        <select id="adminAccountSorter" name="accoutSorter">
+            <option value="Amount Ascending">Amount Ascending</option>
+            <option value="Amount Descending">Amount Descending</option>
+            <option value="Account ID Ascending">From Account ID Ascending</option>
+            <option value="Account ID Descending">From Account ID Descending</option>
+        </select>
+    </div>
+    <div>
+        <button type="button" id="SubmitSortAdminTransactionButton" onclick="adminSortTransactions()">Sort</button>
+    </div>
+</form>
+
+<h2>Transaction Table</h2>
+
+<table id="transaction-table">
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>From Account</th>
+            <th>To Account</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody id="transaction-table-body">
+        @if (ViewData.ContainsKey("BankAccounts") && ViewData["BankAccounts"] != null)
+        {
+            List<BankAccount>? accounts = ViewData["BankAccounts"] as List<BankAccount>;
+            if (accounts != null)
+            {
+                foreach (var account in accounts)
+                {
+                    foreach (var transaction in account.FromTransactions)
+                    {
+                        <tr>
+                            <td>@transaction.TransactionId</td>
+                            <td>@transaction.FromAccountNumber</td>
+                            <td>@transaction.ToAccountNumber</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>@transaction.Description</td>
+                        </tr>
+                    }
+                    foreach (var transaction in account.ToTransactions)
+                    {
+                        <tr>
+                            <td>@transaction.TransactionId</td>
+                            <td>@transaction.FromAccountNumber</td>
+                            <td>@transaction.ToAccountNumber</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>@transaction.Description</td>
+                        </tr>
+                    }
+                }
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,105 @@
+﻿@* @model WebApp.Models.User *@
+
+@{
+    var user = (User)ViewData["Users"];
+    var imageUrl = "http://localhost:5181" + user.Picture;
+}
+
+<div id="userProfile">
+    <h2>Welcome, @user.Name!</h2>
+    <img src="data:image/bmp;base64, @user.Picture" width="100px" height="100px" alt="User Profile" />
+    <p>Email: @user.Email</p>
+    <p>Phone: @user.Phone</p>
+    <p>Address: @user.Address</p>
+    <p>Password: @user.Password</p>
+    <!-- Add other user details as required -->
+
+    <h3>Bank Accounts</h3>
+    <ul>
+        @foreach (var account in user.BankAccounts)
+        {
+            <li>@account.AccountNumber - $@account.Balance.ToString("N2")</li>
+        }
+    </ul>
+
+    <!-- Edit Profile Button -->
+    <button id="editProfileBtn" onclick="showEditForm()">Edit Profile</button>
+    <button id="showTransferBtn" onclick="showTransferForm()">Transfer Money  </button>
+
+</div>
+<!-- Transaction History Section TODO FIXME: NOT DISPLAYING-->
+<div id="transactionHistory">
+    <h3>Transaction History</h3>
+
+    <label for="accountSelector">Select Account:</label>
+    <select id="accountSelector" name="accountSelector">
+        @foreach (var account in user.BankAccounts)
+        {
+            <option value="@account.AccountNumber">@account.AccountNumber</option>
+        }
+    </select>
+
+    <button onclick="fetchAndDisplayTransactions()">View Transaction History</button>
+
+</div>
+<!-- Transfer Money Form -->
+<div id="transferMoneyForm" style="display:none;">
+    <h2>Transfer Money</h2>
+
+    <label for="fromAccount">From Account:</label>
+    <select id="fromAccount" name="FromAccountNumber" required>
+        @foreach (var account in user.BankAccounts)
+        {
+            <option value="@account.AccountNumber">@account.AccountNumber</option>
+        }
+    </select>
+
+    <label for="toAccount">To Account Number:</label>
+    <input type="number" id="toAccount" name="ToAccountNumber" required />
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="Amount" step="0.01" required />
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="Description" required />
+
+    <button id="performTransferBtn" onclick="transferMoney()">Transfer Money</button>
+</div>
+
+<!-- Edit Profile Form (initially hidden) -->
+<div id="editProfileForm" style="display:none;">
+    <h2>Edit Profile</h2>
+    <label for="Username">Username:</label>
+    <input type="text" id="Username" name="Username" value="@user.Username" required readonly />
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="Name" value="@user.Name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="Email" value="@user.Email" required />
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="Phone" value="@user.Phone" required />
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="Address" value="@user.Address" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="Password" value="@user.Password" required />
+
+
+    <input type="hidden" id="sessionID" name="SessionID" value="@user.SessionID" required readonly />
+
+
+    <label for="picture">Picture URL:</label>
+    <input type="text" id="picture" name="Picture" value="@user.Picture" required />
+
+
+    <button id="updateProfileBtn" onclick="updateProfile()">Update Profile</button>
+
+
+</div>
+
+
+
+

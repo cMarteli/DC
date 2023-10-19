@@ -1,0 +1,33 @@
+﻿<Window x:Class="ChatClient.ChatroomNameDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Chatroom" Height="150" Width="300"
+        Background="#36393f">
+
+    <Grid>
+        <!-- Big "Enter Chatroom Name" text in the middle top -->
+        <TextBlock Text="Enter Chatroom Name"
+                   FontSize="15" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,20,0,0" 
+                   Foreground="White"/>
+
+        <!-- TextBox for chatroom name input -->
+        <TextBox x:Name="ChatroomNameTextBox" 
+                 Text="Type the chatroom name" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                 Width="200" Height="35" 
+                 Foreground="Black"
+                 Padding="10"
+                 FontSize="10"
+                 GotFocus="ChatroomNameTextBox_GotFocus"/>
+
+        <!-- StackPanel for buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
+            <Button Content="OK" Width="100" Margin="10,0" Click="OKButton_Click"/>
+            <Button Content="Cancel" Width="100" Margin="10,0" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

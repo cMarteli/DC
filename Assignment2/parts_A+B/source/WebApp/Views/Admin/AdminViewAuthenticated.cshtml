@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+
+<nav class="navbar">
+    <ul class="nav-ul">
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('admin')">Admin</a>
+        </li>
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('adminusers')">User Management</a>
+        </li>
+        <li class="nav-li">
+            <a href="#" class="nav-a" onclick="loadView('admintransactions')">Transaction Management</a>
+        </li>
+    </ul>
+</nav>
+@if (ViewData.ContainsKey("Admin"))
+{
+    Admin? admin = ViewData["Admin"] as Admin;
+    if (admin != null)
+    {
+        <h1 id="status">Welcome, @admin.Name!</h1>
+    }
+    else
+    {
+        <h1>Welcome!</h1>
+    }
+}
+else
+{
+    <h1>Welcome!</h1>
+}
+
+<h2>Account Details</h2>
+@if (ViewData.ContainsKey("Admin"))
+{
+    Admin? admin = ViewData["Admin"] as Admin;
+    if (admin != null)
+    {
+        <img src="data:image/bmp;base64, @admin.Picture" width="100px" height="100px" alt="Admin Profile" />
+        <p>Username: @admin.Username</p>
+        <p>Name: @admin.Name</p>
+        <p>Email Address: @admin.Email</p>
+        <p>Phone: @admin.Phone</p>
+    }
+}
+
+<h2>Update Account Settings</h2>
+<form>
+    <div class="form-div">
+        <label for="Phone">Phone</label>
+        <input type="text" name="Phone" id="AdminPhone" placeholder="Phone Number">
+    </div>
+    <div class="form-div">
+        <label for="Email">Email</label>
+        <input type="text" name="Email" id="AdminEmail" placeholder="Email Address">
+    </div>
+    <div>
+        <button type="button" id="SubmitAccountUpdateButton" onclick="updateAdminContact()">
+            Update Contact
+            Details
+        </button>
+    </div>
+</form>
+
+<h2>Update Password</h2>
+<form>
+    <div class="form-div">
+        <label for="Password1">Enter Password</label>
+        <input type="password" name="Password1" id="AdminPassword1" placeholder="Enter Password">
+    </div>
+    <div class="form-div">
+        <label for="Password2">Enter Password Again</label>
+        <input type="password" name="Password2" id="AdminPassword2" placeholder="Re-enter Password">
+    </div>
+    <div>
+        <button type="button" id="SubmitPasswordUpdateButton" onclick="updateAdminPassword()">Update Password</button>
+
+    </div>
+</form>
