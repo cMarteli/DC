@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3KlKIS1uV7klBX1Xqb/jnL1u/ygxpae/y3WpZkw57IXXahVcQf1BQDbcxobV1gXYjgRb/OsBHhFjGO2zJGdibg==",
+  "dgSpecHash": "xf3RrM7Jsmmfx8dhrbWi0npXOhccFWJlgaJ28+A7e9cyf0akluptVkaT1kJDjKzINlPmnjr8sxcPMLzlZfe2iA==",
   "success": true,
-  "projectFilePath": "H:\\Uni\\DC\\Assignment2\\Parts C + D\\DC2_PartC\\P2PApp\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "H:\\Uni\\DC\\repos\\Assignment2\\parts_C+D\\source\\P2PApp\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cvmar\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\cvmar\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
