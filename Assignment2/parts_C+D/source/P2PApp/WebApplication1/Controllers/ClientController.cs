@@ -26,35 +26,35 @@ namespace DataServer.Controllers {
             }
         }
 
-        // GET: api/client/{id}
-        [HttpGet("{id}")]
-        public ActionResult GetClientById(int id) {
+        // GET: api/client/{ip}/{port}
+        [HttpGet("{ip}/{port}")]
+        public ActionResult GetClient(string ip, int port) {
             try {
-                Client client = _context.Clients.FirstOrDefault(c => c.Id == id);
+                Client client = _context.Clients.FirstOrDefault(c => c.IPAddress == ip && c.Port == port);
                 if (client == null) {
-                    return NotFound(new { message = $"Client with ID {id} not found." });
+                    return NotFound(new { message = $"Client with IP {ip} and Port {port} not found." });
                 }
                 string jsonResponse = JsonConvert.SerializeObject(client);
                 return Content(jsonResponse, "application/json");
-            } catch (Exception ex) {
+            } catch (System.Exception ex) {
                 return StatusCode(500, new { message = "An error occurred while fetching the client.", details = ex.Message });
             }
         }
 
-        // DELETE: api/client/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(int id) {
+        // DELETE: api/client/{ip}/{port}
+        [HttpDelete("{ip}/{port}")]
+        public async Task<IActionResult> DeleteClient(string ip, int port) {
             try {
-                var client = await _context.Clients.FirstOrDefaultAsync(c => c.Id == id);
+                var client = await _context.Clients.FirstOrDefaultAsync(c => c.IPAddress == ip && c.Port == port);
                 if (client == null) {
-                    return NotFound(new { message = $"Client with ID {id} not found." });
+                    return NotFound(new { message = $"Client with IP {ip} and Port {port} not found." });
                 }
                 _context.Clients.Remove(client);
                 await _context.SaveChangesAsync();
-                return Ok(new { message = $"Client with ID {id} removed successfully." });
+                return Ok(new { message = $"Client with IP {ip} and Port {port} removed successfully." });
             } catch (DbUpdateException ex) {
                 return StatusCode(400, new { message = "Database update failed.", details = ex.Message });
-            } catch (Exception ex) {
+            } catch (System.Exception ex) {
                 return StatusCode(500, new { message = "An error occurred while removing the client.", details = ex.Message });
             }
         }
@@ -64,7 +64,6 @@ namespace DataServer.Controllers {
         // POST: api/client/new 
         /* BODY: 
          * {
-         * "Id": 7,
          * "IPAddress": "192.168.1.19",
          * "Port": 8098
          * } 

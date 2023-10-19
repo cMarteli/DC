@@ -16,26 +16,25 @@ namespace DataServer.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IPAddress = table.Column<string>(type: "TEXT", nullable: true),
-                    Port = table.Column<int>(type: "INTEGER", nullable: true)
+                    IPAddress = table.Column<string>(type: "TEXT", nullable: false),
+                    Port = table.Column<int>(type: "INTEGER", nullable: false),
+                    CompletedJobs = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => new { x.IPAddress, x.Port });
                 });
 
             migrationBuilder.InsertData(
                 table: "Clients",
-                columns: new[] { "Id", "IPAddress", "Port" },
+                columns: new[] { "IPAddress", "Port", "CompletedJobs" },
                 values: new object[,]
                 {
-                    { 1, "192.168.1.1", 8080 },
-                    { 2, "192.168.1.2", 8081 },
-                    { 3, "192.168.1.3", 8082 },
-                    { 4, "192.168.1.4", 8083 },
-                    { 5, "192.168.1.5", 8084 }
+                    { "192.168.1.1", 8080, 0 },
+                    { "192.168.1.2", 8081, 0 },
+                    { "192.168.1.3", 8082, 0 },
+                    { "192.168.1.4", 8083, 0 },
+                    { "192.168.1.5", 8084, 0 }
                 });
         }
 

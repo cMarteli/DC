@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2PClient.Properties {
+namespace ClientDesktop.Properties {
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

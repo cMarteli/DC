@@ -10,17 +10,17 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>IP Address</th>
                     <th>Port</th>
+                    <th>Completed Jobs</th>
                 </tr>
             </thead>
             <tbody>
             @foreach (var client in Model.Clients) {
                         <tr>
-                            <td>@client.Id</td>
                             <td>@client.IPAddress</td>
                             <td>@client.Port</td>
+                            <td>@client.CompletedJobs</td>
                         </tr>
             }
             </tbody>

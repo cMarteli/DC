@@ -1,0 +1,14 @@
+TODO:
+****** RUN AS ADMIN TO CREATE CLIENTS ******
+
+Make sure when user enters a port it's being added to the database.
+
+Make sure we're checking the database for a list of available ports.
+
+
+Current Bugs:
+Does not send the "job" to other clients.
+Does add itself to list after entering port.
+
+Need to test:
+If list is self updating.

@@ -1,0 +1,10 @@
+﻿<Window x:Class="ClientDesktop.PortDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Enter Port Number" Height="150" Width="300">
+    <Grid>
+        <Label Content="Enter Port:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox x:Name="PortTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,10,0,0" Width="180"/>
+        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="SubmitButton_Click"/>
+    </Grid>
+</Window>
