@@ -6,6 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ClientContext>();
 
+// Add CORS services
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowAll", policy => {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Ensure the database is created
@@ -18,7 +27,11 @@ using (var scope = app.Services.CreateScope()) {
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
+
+// Whitelist all origins
+app.UseCors("AllowAll");
 
 app.UseRouting();
 
