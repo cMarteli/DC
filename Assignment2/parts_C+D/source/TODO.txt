@@ -1,5 +1,5 @@
 TODO:
-****** RUN AS ADMIN TO CREATE CLIENTS ******
+
 Needs to have python code converted to BASE64
 
 

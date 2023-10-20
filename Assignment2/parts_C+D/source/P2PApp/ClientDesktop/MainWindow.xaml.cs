@@ -1,155 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ServiceModel;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using ClientDesktop.Services;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace ClientDesktop {
     public partial class MainWindow : Window {
-        private ServiceHost host;
-        private readonly ClientService _clientService;
-        private readonly JobService _jobService;
-        private int _completedJobs = 0;
-        private int selectedPort = 0;
+        private ClientService _clientService;
+        private JobServiceHostManager _jobServiceHostManager;
+        private ScriptEngine _pythonEngine;
+        private ScriptScope _pythonScope;
+        private int _selectedPort = 0;
+
+        private Thread _networkingThread;
 
         public MainWindow() {
             InitializeComponent();
-            Closing += MainWindow_Closing; // Close WCF service host when window closes
+            Closing += OnMainWindowClosing;
 
+            // Initialize ClientService first
+            _clientService = new ClientService();
 
-            _jobService = new JobService();
-            _clientService = new ClientService(_jobService);
+            // Initialize IronPython
+            _pythonEngine = Python.CreateEngine();
+            _pythonScope = _pythonEngine.CreateScope();
 
+            // Initialize port and networking
+            PromptForPort();
+
+            // Initialize and start the WCF Service Host
+            _jobServiceHostManager = new JobServiceHostManager(_selectedPort);
+            _jobServiceHostManager.StartService();
+
+            // Initialize Networking Thread
+            _networkingThread = new Thread(RunNetworkingTasks);
+            _networkingThread.Start();
+        }
+
+        private void PromptForPort() {
             PortDialog portDialog = new PortDialog();
             if (portDialog.ShowDialog() == true) {
-                selectedPort = portDialog.Port;
-
-                // Continue initialization with the port
-                InitializeWCFService(selectedPort);
-                StartNetworkingThread();
+                _selectedPort = portDialog.Port;
+                _clientService.RegisterClient("localhost", _selectedPort);
             }
             else {
-                // Close the application if the dialog is cancelled or no port is entered
                 Close();
             }
         }
 
-        // TODO: invalid port?
-        private void InitializeWCFService(int port) {
-            _clientService.RegisterClient("localhost", port); // Register this client with the API
-            Uri baseAddress = new Uri($"http://localhost:{port}/JobService");
-            host = new ServiceHost(typeof(JobService), baseAddress);
-
-            // Define an endpoint for the service.
-            host.AddServiceEndpoint(typeof(IJobService), new WSHttpBinding(), "");
-
-            host.Open();
-        }
-
-
-        private void StartNetworkingThread() {
-            Task.Run(async () => {
-                while (true) {
-                    // Discover active clients
-                    List<dynamic> activeClients = _clientService.GetClients();
-                    // Check each client for jobs and perform them
-                    await PerformJobsFromClients(activeClients);
-                    await Task.Delay(2000); // Sleep for 2 seconds
-                }
-            });
-        }
-
-        private async void SubmitButton_Click(object sender, RoutedEventArgs e) {
+        private void SubmitButton_Click(object sender, RoutedEventArgs e) {
             string pythonCode = PythonCodeInput.Text;
-
-            if (IsInputValid(pythonCode)) {
-                DisableUI();
-                try {
-                    // Distribute Python code to peer GUIs
-                    var result = await _clientService.DistributePythonCodeToPeersAsync(pythonCode);
-                    MessageBox.Show($"Execution completed. Result: {result}");
-                } catch (Exception ex) {
-                    MessageBox.Show($"An error occurred: {ex.Message}");
-                } finally {
-                    EnableUI();
-                }
+            if (!string.IsNullOrWhiteSpace(pythonCode)) {
+                ExecutePythonJob(pythonCode);
             }
-        }
-
-        private bool IsInputValid(string input) {
-            if (string.IsNullOrWhiteSpace(input)) {
+            else {
                 MessageBox.Show("Please enter some Python code.");
-                return false;
             }
-            return true;
         }
 
-        private void DisableUI() {
-            SubmitButton.IsEnabled = false;
-            CheckStatusButton.IsEnabled = false;
+        private void ExecutePythonJob(string pythonCode) {
+            try {
+                _pythonEngine.Execute(pythonCode, _pythonScope);
+                // Assuming "test_func" is a defined Python function
+                dynamic testFunction = _pythonScope.GetVariable("test_func");
+                string result = Convert.ToString(testFunction(23, 4)); // Execute the Python function
+                MessageBox.Show($"Job Completed: {result}");
+            } catch (Exception e) {
+                MessageBox.Show($"An error occurred: {e.Message}");
+            }
         }
 
-        private void EnableUI() {
-            SubmitButton.IsEnabled = true;
-            CheckStatusButton.IsEnabled = true;
-        }
-
-        private void CheckStatusButton_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        // Method to update the Job Status text
-        public void UpdateJobStatus(string status) {
-            Dispatcher.Invoke(() => {
-                JobStatus.Text = $"Job Status: {status}";
-            });
-        }
-
-        private async Task PerformJobsFromClients(List<dynamic> clients) {
-            foreach (var client in clients) {
-                var jobs = await _clientService.CheckForJobs(client);
-
-                if (jobs.Any()) {
-                    foreach (var job in jobs) {
-                        try {
-                            var result = await _jobService.ResolveJobAsync(job.PythonCode);
-                            IncrementCompletedJobs();
-                            // Send results back to the originating client if needed
-                        } catch (Exception e) {
-                            // Log or report job execution errors
+        private async void RunNetworkingTasks() {
+            while (true) {
+                List<dynamic> peerClients = _clientService.GetClients();
+                foreach (var client in peerClients) {
+                    if (client.Port != _selectedPort) { // Skip self
+                        List<dynamic> jobs = await _clientService.GetJobsFromPeer(client);
+                        foreach (var job in jobs) {
+                            ExecutePythonJob(job.Code);  // Assuming the Python code is in 'Code' property
                         }
                     }
                 }
+                Thread.Sleep(5000); // Wait for 5 seconds before the next cycle
             }
         }
 
-        public void IncrementCompletedJobs() {
-            _completedJobs++;
-            _clientService.IncrementCompletedJobs("localhost", selectedPort); //TODO : Fix this NOT INCREMENTING
-            UpdateJobStatus($"Completed Jobs: {_completedJobs}");
+
+        private void OnMainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e) {
+            _clientService.UnregisterClient("localhost", _selectedPort);
+            _jobServiceHostManager?.Dispose(); // Dispose to stop the service
         }
-
-        private void MainWindow_Closing(object sender, CancelEventArgs e) {
-            _clientService.UnregisterClient("localhost", selectedPort); // Unregister this client with the API
-            host?.Close();
-        }
-
-        private bool IsPortAvailable(int port) {
-            bool isAvailable = true;
-
-            try {
-                // Try to open the port
-                System.Net.Sockets.TcpListener tcpListener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Any, port);
-                tcpListener.Start();
-                tcpListener.Stop();
-            } catch (Exception) {
-                isAvailable = false;
-            }
-
-            return isAvailable;
-        }
-
     }
 }

@@ -1,39 +1,41 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using ClientDesktop.Models;
-using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 
 namespace ClientDesktop.Services {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single)]
     public class JobService : IJobService {
-        private readonly ScriptEngine _engine;
-        private readonly ScriptScope _scope;
-        private readonly List<Job> _jobList = new List<Job>();
+        private readonly ConcurrentDictionary<Guid, Job> _jobList = new ConcurrentDictionary<Guid, Job>();
 
-        public JobService() {
-            // Initialize IronPython runtime
-            _engine = Python.CreateEngine();
-            _scope = _engine.CreateScope();
+        public async Task<List<Job>> GetPendingJobsAsync() {
+            return await Task.Run(() => _jobList.Values.Where(j => !j.IsCompleted).ToList());
         }
 
-        public void AddJob(Job job) {
-            _jobList.Add(job);
-        }
-
-        public List<Job> GetPendingJobs() {
-            return _jobList.Where(j => !j.IsCompleted).ToList();
-        }
-
-        public async Task<string> ResolveJobAsync(string pythonCode) {
+        public async Task<Job> GetJobByIdAsync(Guid jobId) {
             return await Task.Run(() => {
-                _engine.Execute(pythonCode, _scope);
-                dynamic testFunction = _scope.GetVariable("test_func");
-
-                return Convert.ToString(testFunction(23, 4));  // Convert the result to a string
+                if (_jobList.TryGetValue(jobId, out Job job)) {
+                    return job;
+                }
+                return null;
             });
         }
 
+        public async Task SubmitJobResultAsync(Job job) {
+            await Task.Run(() => {
+                if (_jobList.TryGetValue(job.Id, out Job jobToComplete)) {
+                    jobToComplete.SetResult(job.Result);
+                }
+            });
+        }
+
+        public async Task AddNewJobAsync(Job job) {
+            await Task.Run(() => {
+                _jobList.TryAdd(job.Id, job);
+            });
+        }
     }
 }

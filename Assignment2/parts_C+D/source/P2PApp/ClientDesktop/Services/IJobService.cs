@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using ClientDesktop.Models;
@@ -7,12 +8,15 @@ namespace ClientDesktop.Services {
     [ServiceContract]
     public interface IJobService {
         [OperationContract]
-        Task<string> ResolveJobAsync(string pythonCode);
+        Task<List<Job>> GetPendingJobsAsync();
 
         [OperationContract]
-        void AddJob(Job job);
+        Task<Job> GetJobByIdAsync(Guid jobId);
 
         [OperationContract]
-        List<Job> GetPendingJobs();
+        Task SubmitJobResultAsync(Job job);
+
+        [OperationContract]
+        Task AddNewJobAsync(Job job);
     }
 }
