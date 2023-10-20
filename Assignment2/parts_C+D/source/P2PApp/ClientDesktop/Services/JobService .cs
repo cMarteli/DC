@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ClientDesktop.Models;
@@ -29,8 +30,10 @@ namespace ClientDesktop.Services {
             return await Task.Run(() => {
                 _engine.Execute(pythonCode, _scope);
                 dynamic testFunction = _scope.GetVariable("test_func");
-                return testFunction(23, 4);  // TODO: Hardcoded values for demo purposes
+
+                return Convert.ToString(testFunction(23, 4));  // Convert the result to a string
             });
         }
+
     }
 }

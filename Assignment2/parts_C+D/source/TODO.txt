@@ -1,14 +1,13 @@
 TODO:
 ****** RUN AS ADMIN TO CREATE CLIENTS ******
+Needs to have python code converted to BASE64
 
-Make sure when user enters a port it's being added to the database.
-
-Make sure we're checking the database for a list of available ports.
 
 
 Current Bugs:
 Does not send the "job" to other clients.
-Does add itself to list after entering port.
+Not incrementing the number of completed jobs
 
 Need to test:
-If list is self updating.
+Make sure we're checking the database for a list of available ports.
+

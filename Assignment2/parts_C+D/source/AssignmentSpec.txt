@@ -1,0 +1,62 @@
+Assignment Specification: Peer-to-Peer Application in C#
+Overview
+Build a peer-to-peer application to execute Python jobs. The system comprises three main components:
+
+ASP.NET MVC Web Service (Web Server): Manages the client list and their information in a local database.
+Desktop Application (Client): Connects to the Web Service and other clients to find and perform jobs.
+ASP.NET Core Dashboard (Website): Displays client activity.
+Requirements and Components
+1. Web Server - ASP.NET MVC Web Service with Local Database
+Objective: Facilitate client discovery.
+Database: Store client IP and port information.
+Endpoints:
+RegisterClient: Clients post IP and .NET Remoting service port.
+GetClients: Clients request a list of other active clients.
+Features:
+Record job completion stats in the database.
+Implementation Tips:
+
+You can model the database using static classes.
+Test your API endpoints before moving to the next step.
+Marks: 3
+
+2. Client - Desktop Application with .NET Remoting
+Objective: Execute Python jobs and communicate with the Web Server and other clients.
+Libraries: Newtonsoft.JSON, RestSharp, Iron Python (All available via NuGet).
+Threads:
+GUI Thread: Provided by WPF.
+Networking Thread: Manages client discovery and job execution.
+Server Thread: Manages connections from other clients.
+GUI Features:
+
+Input for Python code (file or textbox).
+Display ongoing and completed job counts.
+Networking Thread Functions:
+
+Find new clients by querying the Web Service.
+Check and perform jobs from other clients.
+Server Thread Functions:
+
+Expose a .NET Remoting service for job management.
+Each client instance has its own WCF server with a user-specified port.
+Implementation Tips:
+
+Use Iron Python to execute Python code.
+Server functions can be set up with their own synchronization contexts or use .NET's default service synchronization.
+Marks: 7
+
+3. Dashboard - ASP.NET Core Website
+Objective: Display active clients and job completion stats.
+Features:
+Real-time updates every 1 minute using JS.
+Retrieve data from the Web Server's database.
+Marks: 3
+
+Frequently Asked Questions (Integrated into Specifications):
+Multiple Instances on the Same Machine: Each client instance must run its own WCF server, specified by the user-inputted port when the client GUI starts.
+
+Definition of a Job: A job is a piece of Python code that is sent for execution to a peer client. Peer clients execute this code and return the output back to the originating client. Iron Python is used to run the Python code.
+
+Total Marks: 13
+
+By fulfilling these requirements, you will create a functioning peer-to-peer system for executing Python code.

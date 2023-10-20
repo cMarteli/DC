@@ -42,8 +42,8 @@ namespace DataServer.Controllers {
         }
 
         // DELETE: api/client/{ip}/{port}
-        [HttpDelete("{ip}/{port}")]
-        public async Task<IActionResult> DeleteClient(string ip, int port) {
+        [HttpDelete("remove/{ip}/{port}")]
+        public async Task<IActionResult> Unregister(string ip, int port) {
             try {
                 var client = await _context.Clients.FirstOrDefaultAsync(c => c.IPAddress == ip && c.Port == port);
                 if (client == null) {
@@ -82,6 +82,26 @@ namespace DataServer.Controllers {
             } catch (Exception ex) {
                 // Log the exception (consider using a logging framework)
                 return StatusCode(500, new { message = "An error occurred while registering the client.", details = ex.Message });
+            }
+        }
+
+
+        // PUT: api/client/increment/{ip}/{port}
+        [HttpPut("increment/{ip}/{port}")]
+        public IActionResult IncrementJobCounter(string ip, int port) {
+            try {
+                Client client = _context.Clients.FirstOrDefault(c => c.IPAddress == ip && c.Port == port);
+                if (client == null) {
+                    return NotFound(new { message = $"Client with IP {ip} and Port {port} not found." });
+                }
+                client.CompletedJobs++;
+                _context.SaveChanges();
+                string jsonResponse = JsonConvert.SerializeObject(new { success = true });
+                return Content(jsonResponse, "application/json");
+            } catch (DbUpdateException ex) {
+                return StatusCode(400, new { message = "Database update failed.", details = ex.Message });
+            } catch (Exception ex) {
+                return StatusCode(500, new { message = "An error occurred while incrementing the job counter.", details = ex.Message });
             }
         }
 

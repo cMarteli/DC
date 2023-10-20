@@ -12,17 +12,19 @@ namespace ClientDesktop {
         private readonly ClientService _clientService;
         private readonly JobService _jobService;
         private int _completedJobs = 0;
+        private int selectedPort = 0;
 
         public MainWindow() {
             InitializeComponent();
             Closing += MainWindow_Closing; // Close WCF service host when window closes
 
-            _clientService = new ClientService();
+
             _jobService = new JobService();
+            _clientService = new ClientService(_jobService);
 
             PortDialog portDialog = new PortDialog();
             if (portDialog.ShowDialog() == true) {
-                int selectedPort = portDialog.Port;
+                selectedPort = portDialog.Port;
 
                 // Continue initialization with the port
                 InitializeWCFService(selectedPort);
@@ -36,6 +38,7 @@ namespace ClientDesktop {
 
         // TODO: invalid port?
         private void InitializeWCFService(int port) {
+            _clientService.RegisterClient("localhost", port); // Register this client with the API
             Uri baseAddress = new Uri($"http://localhost:{port}/JobService");
             host = new ServiceHost(typeof(JobService), baseAddress);
 
@@ -124,10 +127,12 @@ namespace ClientDesktop {
 
         public void IncrementCompletedJobs() {
             _completedJobs++;
+            _clientService.IncrementCompletedJobs("localhost", selectedPort); //TODO : Fix this NOT INCREMENTING
             UpdateJobStatus($"Completed Jobs: {_completedJobs}");
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e) {
+            _clientService.UnregisterClient("localhost", selectedPort); // Unregister this client with the API
             host?.Close();
         }
 
@@ -140,7 +145,6 @@ namespace ClientDesktop {
                 tcpListener.Start();
                 tcpListener.Stop();
             } catch (Exception) {
-                // Couldn't open the port (likely because it's already in use)
                 isAvailable = false;
             }
 

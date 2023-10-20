@@ -7,7 +7,6 @@ namespace ClientDesktop {
         public PortDialog() {
             InitializeComponent();
         }
-
         private void SubmitButton_Click(object sender, RoutedEventArgs e) {
             if (int.TryParse(PortTextBox.Text, out int port)) {
                 Port = port;

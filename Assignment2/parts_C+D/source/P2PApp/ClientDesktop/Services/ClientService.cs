@@ -5,8 +5,12 @@ using RestSharp;
 
 namespace ClientDesktop.Services {
     public class ClientService {
+        private readonly JobService _jobService;
         private const string BaseUrl = "http://localhost:5006/api/Client";  // Update to match your API endpoint
 
+        public ClientService(JobService jobService) {
+            _jobService = jobService;
+        }
         public bool RegisterClient(string ipAddress, int port) {
             var client = new RestClient(BaseUrl);
             var request = new RestRequest("new", Method.Post);
@@ -19,6 +23,16 @@ namespace ClientDesktop.Services {
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
+        public bool UnregisterClient(string ipAddress, int port) {
+            var client = new RestClient(BaseUrl);
+            // Update the URL to include the ipAddress and port in the URL itself
+            var request = new RestRequest($"remove/{ipAddress}/{port}", Method.Delete);
+
+            RestResponse response = client.Execute(request);
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+
         public List<dynamic> GetClients() {
             var client = new RestClient(BaseUrl);
             var request = new RestRequest("all", Method.Get);
@@ -27,8 +41,16 @@ namespace ClientDesktop.Services {
             return JsonConvert.DeserializeObject<List<dynamic>>(response.Content);
         }
 
+        public void IncrementCompletedJobs(string ipAddress, int port) {
+            var client = new RestClient(BaseUrl);
+            // Include the ipAddress and port in the URL for the request
+            var request = new RestRequest($"increment/{ipAddress}/{port}", Method.Put);
+
+            client.Execute(request);
+        }
+
+
         public async Task<List<dynamic>> CheckForJobs(dynamic clientInfo) {
-            // Assume an API endpoint "jobs" on peer clients to get pending Python jobs
             string url = $"http://{clientInfo.IPAddress}:{clientInfo.Port}/api";
             var client = new RestClient(url);
             var request = new RestRequest("jobs", Method.Get); // Assuming the client exposes this API
@@ -40,26 +62,17 @@ namespace ClientDesktop.Services {
             return new List<dynamic>();  // return empty list if no jobs or error
         }
 
-
         public async Task<List<dynamic>> DistributePythonCodeToPeersAsync(string pythonCode) {
             List<dynamic> peerClients = GetClients();
             List<dynamic> results = new List<dynamic>();
 
             foreach (var peer in peerClients) {
-                // Assume an API endpoint "execute" on peer clients to run Python code
-                string url = $"http://{peer.IPAddress}:{peer.Port}/api";
-                var client = new RestClient(url);
-                var request = new RestRequest("execute", Method.Post);
-
-                request.AddJsonBody(new { Code = pythonCode });
-
-                RestResponse response = await client.ExecuteAsync(request);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                    dynamic result = JsonConvert.DeserializeObject(response.Content);
-                    results.Add(result);
-                }
+                // Replace the API call with a direct method invocation
+                string result = await _jobService.ResolveJobAsync(pythonCode);
+                results.Add(result);
             }
             return results;
         }
+
     }
 }
