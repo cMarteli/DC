@@ -209,6 +209,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="NetworkingManager.cs" />
     <Compile Include="PortDialog.xaml.cs">
@@ -217,7 +218,7 @@
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Services\IJobService.cs" />
     <Compile Include="Services\JobService .cs" />
-    <Compile Include="Services\JobServiceHostManager.cs" />
+    <Compile Include="Services\JobServiceHost.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

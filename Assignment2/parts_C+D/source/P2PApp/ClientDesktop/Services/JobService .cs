@@ -1,41 +1,54 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using ClientDesktop.Models;
 
 namespace ClientDesktop.Services {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = true, InstanceContextMode = InstanceContextMode.Single)]
     public class JobService : IJobService {
-        private readonly ConcurrentDictionary<Guid, Job> _jobList = new ConcurrentDictionary<Guid, Job>();
+        private ConcurrentQueue<Job> _jobQueue = new ConcurrentQueue<Job>(); // Queue for pending jobs
+        private ConcurrentDictionary<Guid, String> _completedJobs = new ConcurrentDictionary<Guid, String>();
+        // Dictionary for completed jobs
 
-        public async Task<List<Job>> GetPendingJobsAsync() {
-            return await Task.Run(() => _jobList.Values.Where(j => !j.IsCompleted).ToList());
+        public bool HasJob(int port) {
+            if (_jobQueue.Count != 0 && _jobQueue.FirstOrDefault().Owner != port) {
+                return true;
+            }
+            return false;
         }
 
-        public async Task<Job> GetJobByIdAsync(Guid jobId) {
-            return await Task.Run(() => {
-                if (_jobList.TryGetValue(jobId, out Job job)) {
-                    return job;
-                }
-                return null;
-            });
+        public void EnqueueJob(Job job) {
+            _jobQueue.Enqueue(job);
+            LogInformation($"Enqueue|| Owner: {job.Owner} Code: {job.GetDecodedJobCode()}");
         }
 
-        public async Task SubmitJobResultAsync(Job job) {
-            await Task.Run(() => {
-                if (_jobList.TryGetValue(job.Id, out Job jobToComplete)) {
-                    jobToComplete.SetResult(job.Result);
-                }
-            });
+        public Job DequeueJob() {
+            if (_jobQueue.TryDequeue(out Job job)) {
+                return job;
+            }
+            throw new Exception("No job in queue");
         }
 
-        public async Task AddNewJobAsync(Job job) {
-            await Task.Run(() => {
-                _jobList.TryAdd(job.Id, job);
-            });
+        public void SubmitJobResult(Job job) {
+            _completedJobs.TryAdd(job.Id, job.Result.ToString());
+            LogInformation("Submitted Job Result: " + job.Result.ToString());
+        }
+
+        public string GetResult(Guid jobId) {
+            if (_completedJobs.ContainsKey(jobId)) {
+                return _completedJobs[jobId];
+            }
+            throw new Exception("Couldn't obtain result");
+        }
+
+        public bool Ping() {
+            return true;
+        }
+
+        // Helper method for logging
+        private void LogInformation(string message) {
+            Console.WriteLine(message);
         }
     }
 }

@@ -8,18 +8,19 @@ namespace ClientDesktop.Models {
     public class Job {
         private readonly string encodedPythonCode;
         private readonly string hash;
-        private readonly object lockObject = new object();
 
         public Guid Id { get; set; }
         public bool IsCompleted { get; private set; }
-        public object Result { get; private set; }
+        public string Result { get; set; }
+        public int Owner { get; set; }
 
-        public Job(string pyCode) {
+        public Job(string pyCode, int ownerPort) {
             Id = Guid.NewGuid(); // Generate new unique identifier
             encodedPythonCode = Encode64(pyCode);
             hash = GenerateHash(pyCode); // Generate hashedBytes
             IsCompleted = false;
-            Result = null;
+            Result = "";
+            Owner = ownerPort;
         }
 
         private string Encode64(string str) {
@@ -51,13 +52,6 @@ namespace ClientDesktop.Models {
 
         public string GetDecodedJobCode() {
             return Decode64(encodedPythonCode);
-        }
-
-        public void SetResult(object result) {
-            lock (lockObject) {
-                IsCompleted = true;
-                Result = result ?? throw new ArgumentNullException(nameof(result)); // Throw exception if result is null
-            }
         }
     }
 }
