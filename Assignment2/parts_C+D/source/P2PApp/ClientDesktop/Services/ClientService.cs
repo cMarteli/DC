@@ -1,78 +1,69 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using ClientDesktop.Models;
 using Newtonsoft.Json;
 using RestSharp;
 
 namespace ClientDesktop.Services {
     public class ClientService {
-        private readonly JobService _jobService;
-        private const string BaseUrl = "http://localhost:5006/api/Client";  // Update to match your API endpoint
+        private const string BaseUrl = "http://localhost:5006/api/client";  // API endpoint
+        private readonly RestClient _client;
 
-        public ClientService(JobService jobService) {
-            _jobService = jobService;
+        public ClientService(int askingClientPort) {
+            _client = new RestClient(BaseUrl);
+            RegisterClient("localhost", askingClientPort); // Register the client on startup
         }
+
+        private RestResponse ExecuteRequest(RestRequest request) {
+            return (RestResponse)_client.Execute(request);
+        }
+
+        private bool CheckResponse(RestResponse response) {
+            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                return true;
+            }
+            return false;
+        }
+
         public bool RegisterClient(string ipAddress, int port) {
-            var client = new RestClient(BaseUrl);
             var request = new RestRequest("new", Method.Post);
+            request.AddJsonBody(new { IPAddress = ipAddress, Port = port });
 
-            // Prepare JSON object as per your API requirement
-            var newClient = new { IPAddress = ipAddress, Port = port };
-            request.AddJsonBody(newClient);
-
-            RestResponse response = client.Execute(request);
-            return response.StatusCode == System.Net.HttpStatusCode.OK;
+            RestResponse response = ExecuteRequest(request);
+            return CheckResponse(response);
         }
 
         public bool UnregisterClient(string ipAddress, int port) {
-            var client = new RestClient(BaseUrl);
-            // Update the URL to include the ipAddress and port in the URL itself
             var request = new RestRequest($"remove/{ipAddress}/{port}", Method.Delete);
 
-            RestResponse response = client.Execute(request);
-            return response.StatusCode == System.Net.HttpStatusCode.OK;
+            RestResponse response = ExecuteRequest(request);
+            return CheckResponse(response);
         }
 
-
-        public List<dynamic> GetClients() {
-            var client = new RestClient(BaseUrl);
-            var request = new RestRequest("all", Method.Get);
-
-            RestResponse response = client.Execute(request);
-            return JsonConvert.DeserializeObject<List<dynamic>>(response.Content);
+        public List<Client> GetClients(int askingClientPort) {
+            try {
+                var request = new RestRequest("all", Method.Get);
+                RestResponse response = ExecuteRequest(request);
+                if (CheckResponse(response)) {
+                    var allClients = JsonConvert.DeserializeObject<List<Client>>(response.Content);
+                    return allClients.Where(client => client.Port != askingClientPort).ToList();
+                }
+                else {
+                    throw new InvalidOperationException($"Failed to get clients: {response.ErrorMessage}");
+                }
+            } catch (Exception ex) {
+                MessageBox.Show($"An error occurred while fetching clients: {ex.Message}");
+                throw new InvalidOperationException($"An error occurred while fetching clients: {ex.Message}");
+            }
         }
+
 
         public void IncrementCompletedJobs(string ipAddress, int port) {
-            var client = new RestClient(BaseUrl);
-            // Include the ipAddress and port in the URL for the request
             var request = new RestRequest($"increment/{ipAddress}/{port}", Method.Put);
 
-            client.Execute(request);
+            ExecuteRequest(request);
         }
-
-
-        public async Task<List<dynamic>> CheckForJobs(dynamic clientInfo) {
-            string url = $"http://{clientInfo.IPAddress}:{clientInfo.Port}/api";
-            var client = new RestClient(url);
-            var request = new RestRequest("jobs", Method.Get); // Assuming the client exposes this API
-
-            RestResponse response = await client.ExecuteAsync(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                return JsonConvert.DeserializeObject<List<dynamic>>(response.Content);
-            }
-            return new List<dynamic>();  // return empty list if no jobs or error
-        }
-
-        public async Task<List<dynamic>> DistributePythonCodeToPeersAsync(string pythonCode) {
-            List<dynamic> peerClients = GetClients();
-            List<dynamic> results = new List<dynamic>();
-
-            foreach (var peer in peerClients) {
-                // Replace the API call with a direct method invocation
-                string result = await _jobService.ResolveJobAsync(pythonCode);
-                results.Add(result);
-            }
-            return results;
-        }
-
     }
 }

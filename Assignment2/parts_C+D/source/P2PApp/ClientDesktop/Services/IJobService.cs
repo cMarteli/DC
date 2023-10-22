@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using ClientDesktop.Models;
 
 namespace ClientDesktop.Services {
     [ServiceContract]
     public interface IJobService {
         [OperationContract]
-        Task<string> ResolveJobAsync(string pythonCode);
-
+        bool HasJob(int port);
         [OperationContract]
-        void AddJob(Job job);
-
+        void EnqueueJob(Job job);
         [OperationContract]
-        List<Job> GetPendingJobs();
+        Job DequeueJob();
+        [OperationContract]
+        void SubmitJobResult(Job job);
+        [OperationContract]
+        string GetResult(Guid jobId);
+        [OperationContract]
+        bool Ping();
     }
 }

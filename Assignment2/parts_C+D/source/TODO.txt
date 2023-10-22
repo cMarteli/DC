@@ -1,13 +1,10 @@
 TODO:
-****** RUN AS ADMIN TO CREATE CLIENTS ******
-Needs to have python code converted to BASE64
 
-
+Not incrementing the number of completed jobs
+Needs to clear from ports Dashboard if disconnected
 
 Current Bugs:
-Does not send the "job" to other clients.
-Not incrementing the number of completed jobs
 
 Need to test:
-Make sure we're checking the database for a list of available ports.
+
 

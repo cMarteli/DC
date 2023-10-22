@@ -1,39 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading.Tasks;
+using System.ServiceModel;
 using ClientDesktop.Models;
-using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 
 namespace ClientDesktop.Services {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = true, InstanceContextMode = InstanceContextMode.Single)]
     public class JobService : IJobService {
-        private readonly ScriptEngine _engine;
-        private readonly ScriptScope _scope;
-        private readonly List<Job> _jobList = new List<Job>();
+        private ConcurrentQueue<Job> _jobQueue; // Queue for pending jobs
+        private ConcurrentDictionary<Guid, String> _completedJobs;
+        // Dictionary for completed jobs
 
         public JobService() {
-            // Initialize IronPython runtime
-            _engine = Python.CreateEngine();
-            _scope = _engine.CreateScope();
+            Console.WriteLine("Job Service System Online");
+            _jobQueue = new ConcurrentQueue<Job>();
+            _completedJobs = new ConcurrentDictionary<Guid, String>();
+        }
+        public bool HasJob(int port) {
+            if (_jobQueue.Count != 0 && _jobQueue.FirstOrDefault().Owner != port) {
+                return true;
+            }
+            return false;
         }
 
-        public void AddJob(Job job) {
-            _jobList.Add(job);
+        public void EnqueueJob(Job job) {
+            LogInformation($"EnqueueJob: Owner: {job.Owner} Code: {job.GetDecodedJobCode()}");
+            _jobQueue.Enqueue(job);
         }
 
-        public List<Job> GetPendingJobs() {
-            return _jobList.Where(j => !j.IsCompleted).ToList();
+        public Job DequeueJob() {
+            if (_jobQueue.TryDequeue(out Job job)) {
+                return job;
+            }
+            throw new Exception("DequeueJob: No job in queue");
         }
 
-        public async Task<string> ResolveJobAsync(string pythonCode) {
-            return await Task.Run(() => {
-                _engine.Execute(pythonCode, _scope);
-                dynamic testFunction = _scope.GetVariable("test_func");
-
-                return Convert.ToString(testFunction(23, 4));  // Convert the result to a string
-            });
+        public void SubmitJobResult(Job job) {
+            LogInformation("SubmitJobResult: " + job.Result.ToString());
+            _completedJobs.TryAdd(job.Id, job.Result.ToString());
         }
 
+        public string GetResult(Guid jobId) {
+            if (_completedJobs.ContainsKey(jobId)) {
+                return _completedJobs[jobId];
+            }
+            throw new Exception("GetResult: Couldn't obtain result");
+        }
+
+        public bool Ping() {
+            return true;
+        }
+
+        // Helper method for logging
+        private void LogInformation(string message) {
+            Console.WriteLine(message);
+        }
     }
 }
