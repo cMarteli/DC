@@ -4,17 +4,14 @@ using System.Threading;
 using System.Windows;
 using ClientDesktop.Models;
 using ClientDesktop.Services;
-using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 
 namespace ClientDesktop {
     public partial class MainWindow : Window {
-
+        private static string IP = "localhost";
         private JobServiceHost _jobServiceHost;
 
         private ClientService _clientService;
-        private ScriptEngine _pythonEngine;
-        private ScriptScope _pythonScope;
+        private IronPyService _pythonService;
         private int _port = 0;
         private Guid _pendingJobId; // used to track the job that is currently being processed
 
@@ -32,8 +29,7 @@ namespace ClientDesktop {
             _clientService = new ClientService(_port);
 
             // Initialize IronPython
-            _pythonEngine = Python.CreateEngine();
-            _pythonScope = _pythonEngine.CreateScope();
+            _pythonService = new IronPyService();
 
             // Initialize and start the WCF JobService Host
             _jobServiceHost = new JobServiceHost(_port);
@@ -53,26 +49,26 @@ namespace ClientDesktop {
             }
         }
 
-        /// <summary>
-        /// Main networking thread that runs in the background
-        /// Updates peer list and tries to solve other peer's jobs
-        /// </summary>
         private void RunNetworkingTasks() {
             while (true) {
-                _jobServiceHost.UpdatePeerList(FetchPeers()); // update jobservice's peer list
+                Thread.Sleep(5000);
+                _jobServiceHost.UpdatePeerList(FetchPeers());
 
-                // Try to solve other peer's jobs
-                //if (_jobServiceHost.HasJob(_port)) {
-                Job jobToExec = _jobServiceHost.DequeueJobFromPeers(_port);
-                if (jobToExec != null) {
-                    MessageBox.Show($"Arrived at peer: {_port} to be processed. Owner: {jobToExec.Owner} Code: {jobToExec.GetDecodedJobCode()}");
-                    jobToExec.Result = ExecutePythonJob(jobToExec); // package the result to the job
-                    _jobServiceHost.SubmitJobResultToOwner(jobToExec); // submit the job to the jobservice
+                try {
+                    _jobServiceHost.CheckPeerServiceStatus();
+                    Job jobToExec = _jobServiceHost.DequeueJobFromPeers(_port);
+                    if (Object.ReferenceEquals(jobToExec, null)) { // if no job is found, skip the rest of the loop
+                        continue;
+                    }
+                    jobToExec.SetResult(ExecutePythonJob(jobToExec)); // Sets jobs as completed and packages the result
+                    _jobServiceHost.SubmitJobResultToOwner(jobToExec);
+                    _clientService.IncrementCompletedJobs(IP, _port);
+                } catch (Exception e) {
+                    Console.Out.WriteLine($"RunNetworkingTasks: {e.Message}");
                 }
-                //}
-                Thread.Sleep(5000); // Wait for 5 seconds before the next cycle
             }
         }
+
 
 
 
@@ -83,7 +79,7 @@ namespace ClientDesktop {
             if (!string.IsNullOrWhiteSpace(pythonCode)) {
                 Job newJob = new Job(pythonCode, _port);
                 _pendingJobId = newJob.Id; // Track the job that is currently being processed
-                _jobServiceHost.EnqueueJob(newJob);
+                _jobServiceHost.PostJob(newJob);
                 //MessageBox.Show($"Button Click, Job ID: {newJob.Id}, Code: {newJob.GetDecodedJobCode()}");
             }
             else {
@@ -91,21 +87,8 @@ namespace ClientDesktop {
             }
         }
 
-
-        private string ExecutePythonJob(Job j) {
-            try {
-                string pythonCode = j.GetDecodedJobCode();
-                MessageBox.Show($"About to be processd. Code: {pythonCode}");
-                _pythonEngine.Execute(pythonCode, _pythonScope);
-                dynamic testFunction = _pythonScope.GetVariable("test_func");
-                var result = Convert.ToString(testFunction(23, 4)); // Execute the Python function
-                MessageBox.Show($"Processed. Result: {result}");
-                return result;
-
-            } catch (Exception e) {
-                MessageBox.Show($"An error occurred: {e.Message}");
-                return null;
-            }
+        internal string ExecutePythonJob(Job j) {
+            return _pythonService.ExecutePythonJob(j.GetDecodedJobCode());
         }
 
         private List<Client> FetchPeers() {
@@ -113,14 +96,15 @@ namespace ClientDesktop {
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e) {
-            string result = _jobServiceHost.GetResult(_pendingJobId);
-            if (result != null) {
+            try {
+                string result = _jobServiceHost.GetResult(_pendingJobId);
                 JobStatus.Text = "Job Completed";
                 ResultList.Items.Add($"Job ID: {_pendingJobId}, Result: {result}");
                 SubmitButton.IsEnabled = true;
-            }
-            else {
+
+            } catch (Exception ex) {
                 JobStatus.Text = "Job Pending";
+                MessageBox.Show(ex.Message);
             }
         }
 

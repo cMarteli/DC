@@ -18,15 +18,14 @@ public class JobServiceHost {
         try {
             _serviceHost.AddServiceEndpoint(typeof(IJobService), new NetTcpBinding(), $"net.tcp://localhost:{_port}/jobs");
             _serviceHost.Open();
-            Console.WriteLine("Job Service System Online");
         } catch (Exception ex) {
-            Console.WriteLine($"An error occurred while starting the service: {ex.Message}");
+            Console.WriteLine($"JobServiceHost: An error occurred while starting the service: {ex.Message}");
         }
     }
 
     public void StopService() {
         _serviceHost?.Close();
-        Console.WriteLine("Job Service System Offline");
+        Console.WriteLine("StopService: Job Service System Offline");
     }
 
     public void UpdatePeerList(List<Client> inList) {
@@ -34,57 +33,57 @@ public class JobServiceHost {
     }
 
     public void CheckPeerServiceStatus() {
+        ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(new NetTcpBinding());
         foreach (Client peer in _peerClients) {
-            // Create a channel
-            ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(new NetTcpBinding(), new EndpointAddress($"net.tcp://{peer.IPAddress}:{peer.Port}/jobs"));
+            channelFactory.Endpoint.Address = new EndpointAddress($"net.tcp://{peer.IPAddress}:{peer.Port}/jobs");
             IJobService proxy = channelFactory.CreateChannel();
-
             try {
                 if (proxy.Ping()) {
-                    Console.WriteLine($"Service is running on {peer.IPAddress}:{peer.Port}");
+                    Console.WriteLine($"Service is running on {peer.IPAddress}:{peer.Port}/jobs");
                 }
             } catch (Exception e) {
-                Console.WriteLine($"Cannot reach service on {peer.IPAddress}:{peer.Port}. Exception: {e.Message}");
+                Console.WriteLine($"CheckPeerServiceStatus: Cannot reach service on {peer.IPAddress}:{peer.Port}. Exception: {e.Message}");
+                ((IClientChannel)proxy).Abort();  // Abort the proxy channel in case of an exception
+            } finally {
+                ((IClientChannel)proxy).Close();  // Close the proxy channel
             }
-
-            // Close the channel
-            channelFactory.Close();
         }
+        channelFactory.Close();  // Close the channel factory after the loop
     }
 
-    public void EnqueueJob(Job job) {
+
+    public void PostJob(Job job) {
         _jobService.EnqueueJob(job);
     }
 
-    public bool HasJob(int port) {
-        if (_jobService.HasJob(port)) {
-            return true;
-        }
-        return false;
-    }
-
     public Job DequeueJobFromPeers(int port) {
+        using (ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(new NetTcpBinding())) {
+            foreach (Client peer in _peerClients) {
+                channelFactory.Endpoint.Address = new EndpointAddress($"net.tcp://{peer.IPAddress}:{peer.Port}/jobs");
+                IJobService proxy = channelFactory.CreateChannel();
+                IClientChannel channel = (IClientChannel)proxy;
 
-        foreach (Client peer in _peerClients) {
-            ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(
-                new NetTcpBinding(),
-                new EndpointAddress($"net.tcp://{peer.IPAddress}:{peer.Port}/jobs"));
-            IJobService proxy = channelFactory.CreateChannel();
-
-            try {
-                Job job = proxy.DequeueJob();  // try to dequeue job from peer
-                if (job != null) {
-                    channelFactory.Close();
-                    return job;
+                try {
+                    if (proxy.HasJob(port)) {
+                        Job job = proxy.DequeueJob();
+                        return job;
+                    }
+                } catch (TimeoutException e) {
+                    Console.WriteLine($"Timeout: {e.Message}");
+                    channel.Abort();
+                } catch (CommunicationException e) {
+                    Console.WriteLine($"Communication Error: {e.Message}");
+                    channel.Abort();
+                } catch (Exception e) {
+                    Console.WriteLine($"General Error: {e.Message}");
+                    channel.Abort();
+                } finally {
+                    channel.Close();
                 }
-            } catch (Exception e) {
-                Console.WriteLine($"Host: {port}: {e.Message}");
             }
-
-            channelFactory.Close();  // close the channel
         }
-        Console.WriteLine($"Returning NULL JOB");
-        return null;  // return null if no job could be dequeued
+
+        throw new Exception("DequeueJobFromPeers: No job found");
     }
 
     public void SubmitJobResultToOwner(Job job) {
@@ -94,22 +93,31 @@ public class JobServiceHost {
         Client ownerClient = _peerClients.Find(client => client.Port == ownerPort);
 
         if (ownerClient != null) {
-            ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(
+            using (ChannelFactory<IJobService> channelFactory = new ChannelFactory<IJobService>(
                 new NetTcpBinding(),
-                new EndpointAddress($"net.tcp://{ownerClient.IPAddress}:{ownerClient.Port}/jobs"));
-            IJobService proxy = channelFactory.CreateChannel();
+                new EndpointAddress($"net.tcp://{ownerClient.IPAddress}:{ownerClient.Port}/jobs"))) {
+                IJobService proxy = channelFactory.CreateChannel();
+                IClientChannel channel = (IClientChannel)proxy;
 
-            try {
-                proxy.SubmitJobResult(job);
-                Console.WriteLine($"Job result submitted to owner {ownerClient.IPAddress}:{ownerClient.Port}");
-            } catch (Exception e) {
-                Console.WriteLine($"Failed to submit job result to owner {ownerClient.IPAddress}:{ownerClient.Port}. Exception: {e.Message}");
+                try {
+                    proxy.SubmitJobResult(job);
+                    Console.WriteLine($"SubmitJobResultToOwner: {ownerClient.IPAddress}:{ownerClient.Port}");
+                } catch (CommunicationException e) {
+                    Console.WriteLine($"Communication Error: {e.Message}");
+                    channel.Abort();
+                } catch (TimeoutException e) {
+                    Console.WriteLine($"Timeout: {e.Message}");
+                    channel.Abort();
+                } catch (Exception e) {
+                    Console.WriteLine($"SubmitJobResultToOwner: Failed to submit job {ownerClient.IPAddress}:{ownerClient.Port}. Exception: {e.Message}");
+                    channel.Abort();
+                } finally {
+                    channel.Close();
+                }
             }
-
-            channelFactory.Close();  // Close the channel.
         }
         else {
-            Console.WriteLine($"Owner for the job result not found. Owner port: {ownerPort}");
+            Console.WriteLine($"SubmitJobResultToOwner: Owner for the job result not found. Owner port: {ownerPort}");
         }
     }
 

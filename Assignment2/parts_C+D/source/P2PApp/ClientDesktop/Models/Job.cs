@@ -6,12 +6,17 @@ using System.Text;
 namespace ClientDesktop.Models {
     [DataContract]
     public class Job {
+        [DataMember]
         private readonly string encodedPythonCode;
+        [DataMember]
         private readonly string hash;
-
+        [DataMember]
         public Guid Id { get; set; }
+        [DataMember]
         public bool IsCompleted { get; private set; }
-        public string Result { get; set; }
+        [DataMember]
+        public string Result { get; private set; }
+        [DataMember]
         public int Owner { get; set; }
 
         public Job(string pyCode, int ownerPort) {
@@ -52,6 +57,11 @@ namespace ClientDesktop.Models {
 
         public string GetDecodedJobCode() {
             return Decode64(encodedPythonCode);
+        }
+
+        public void SetResult(string result) {
+            Result = result;
+            IsCompleted = true;
         }
     }
 }
