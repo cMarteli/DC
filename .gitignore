@@ -402,3 +402,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.imlit push -u origin main
+/Assignment2/parts_C+D/source/P2PApp/.vs/P2PApp/v17/.suo
